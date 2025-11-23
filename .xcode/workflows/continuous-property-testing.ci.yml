@@ -2,6 +2,8 @@
 version: 1
 env:
   SWIFTCHECK_MAX_TESTS: 10000  # Increase property test iterations for intensive compute
+  SWIFTCHECK_MAX_SIZE: 500
+  SWIFTCHECK_MAX_DISCARD_RATIO: 5
 name: Continuous Property Testing
 trigger:
   branches:
