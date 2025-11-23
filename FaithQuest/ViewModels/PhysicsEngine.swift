@@ -88,6 +88,11 @@ class PhysicsEngine: ObservableObject {
     // MARK: - Theorem Operations
     
     /// Add a new theorem to the unified state
+    /// Bridge strength updates based on theorem category:
+    /// - .bridge theorems: 10% boost (direct connection work)
+    /// - Other categories: 5% boost (indirect strengthening)
+    /// Note: Router operations (blow/suck) do NOT affect bridge strength;
+    /// only recording insights strengthens the bridge
     func addTheorem(content: String, category: OmniTheorem.Category) async {
         let theorem = OmniTheorem(content: content, category: category)
         
@@ -99,6 +104,7 @@ class PhysicsEngine: ObservableObject {
             let newTheorems = state.theorems + [theorem]
             
             // Update bridge strength based on category
+            // Bridge insights have greater impact than realm-specific insights
             let bridgeBoost = category == .bridge ? 0.1 : 0.05
             let newBridgeStrength = min(1.0, state.bridgeStrength + bridgeBoost)
             

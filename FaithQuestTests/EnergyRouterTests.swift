@@ -33,23 +33,37 @@ final class EnergyRouterTests: XCTestCase {
     // MARK: - Blowing Tests
     
     func testBlowingFromLockerToLibrary() {
+        // Given
+        let transferAmount = 0.2
+        let muscleEfficiency = 0.8  // 80% efficiency (20% loss in muscle-to-mental conversion)
+        
         // When
-        let result = router.blowLockerToLibrary(amount: 0.2, state: initialState)
+        let result = router.blowLockerToLibrary(amount: transferAmount, state: initialState)
         
         // Then
         XCTAssertTrue(result.success)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.library]!, 0.2 * 0.8, accuracy: 0.01) // 80% efficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom], -transferAmount)
+        
+        // Energy transferred = amount * efficiency (showing the 20% loss explicitly)
+        let expectedTransfer = transferAmount * muscleEfficiency
+        XCTAssertEqual(result.deltaEnergies[.library]!, expectedTransfer, accuracy: 0.01)
     }
     
     func testBlowingFromLibraryToLocker() {
+        // Given
+        let transferAmount = 0.2
+        let muscleEfficiency = 0.8  // 80% efficiency
+        
         // When
-        let result = router.blowLibraryToLocker(amount: 0.2, state: initialState)
+        let result = router.blowLibraryToLocker(amount: transferAmount, state: initialState)
         
         // Then
         XCTAssertTrue(result.success)
-        XCTAssertEqual(result.deltaEnergies[.library], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.2 * 0.8, accuracy: 0.01) // 80% efficiency
+        XCTAssertEqual(result.deltaEnergies[.library], -transferAmount)
+        
+        // Energy transferred = amount * efficiency
+        let expectedTransfer = transferAmount * muscleEfficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, expectedTransfer, accuracy: 0.01)
     }
     
     func testBlowingInsufficientEnergy() {
@@ -73,23 +87,37 @@ final class EnergyRouterTests: XCTestCase {
     // MARK: - Suction Tests
     
     func testSuckingFromLibraryToLocker() {
+        // Given
+        let transferAmount = 0.2
+        let mindEfficiency = 0.9  // 90% efficiency (10% loss in mental-to-physical conversion)
+        
         // When
-        let result = router.suckLibraryToLocker(amount: 0.2, state: initialState)
+        let result = router.suckLibraryToLocker(amount: transferAmount, state: initialState)
         
         // Then
         XCTAssertTrue(result.success)
-        XCTAssertEqual(result.deltaEnergies[.library], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.2 * 0.9, accuracy: 0.01) // 90% efficiency
+        XCTAssertEqual(result.deltaEnergies[.library], -transferAmount)
+        
+        // Energy transferred = amount * efficiency (more efficient than blowing)
+        let expectedTransfer = transferAmount * mindEfficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, expectedTransfer, accuracy: 0.01)
     }
     
     func testSuckingFromLockerToLibrary() {
+        // Given
+        let transferAmount = 0.2
+        let mindEfficiency = 0.9  // 90% efficiency
+        
         // When
-        let result = router.suckLockerToLibrary(amount: 0.2, state: initialState)
+        let result = router.suckLockerToLibrary(amount: transferAmount, state: initialState)
         
         // Then
         XCTAssertTrue(result.success)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.library]!, 0.2 * 0.9, accuracy: 0.01) // 90% efficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom], -transferAmount)
+        
+        // Energy transferred = amount * efficiency
+        let expectedTransfer = transferAmount * mindEfficiency
+        XCTAssertEqual(result.deltaEnergies[.library]!, expectedTransfer, accuracy: 0.01)
     }
     
     func testSuckingInsufficientEnergy() {
@@ -99,6 +127,21 @@ final class EnergyRouterTests: XCTestCase {
         // Then
         XCTAssertFalse(result.success)
         XCTAssertTrue(result.message.contains("Insufficient"))
+    }
+    
+    func testEnergyLossExplicitCalculation() {
+        // Given - Test explicitly showing energy loss in transfer
+        let transferAmount = 0.2
+        let muscleEfficiency = 0.8
+        let energyLoss = transferAmount * (1.0 - muscleEfficiency)  // 20% loss = 0.04
+        
+        // When - Blowing from locker to library
+        let result = router.blowLockerToLibrary(amount: transferAmount, state: initialState)
+        
+        // Then - Verify the loss is exactly what we expect
+        let expectedTransfer = transferAmount - energyLoss  // 0.2 - 0.04 = 0.16
+        XCTAssertEqual(result.deltaEnergies[.library]!, expectedTransfer, accuracy: 0.01)
+        XCTAssertEqual(energyLoss, 0.04, accuracy: 0.01, "Expected 20% loss in muscle-to-mental conversion")
     }
     
     func testSuckingMoreEfficientThanBlowing() {

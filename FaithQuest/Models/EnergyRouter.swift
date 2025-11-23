@@ -34,12 +34,22 @@ struct RoutingResult {
 /// Routes energy messages between realms using Blowing (push) and Suction (pull) mechanics
 class EnergyRouter {
     
-    // MARK: - Constants
+    // MARK: - Physics Constants (Domain Semantics)
     
-    private let blowingEfficiency: Double = 0.8    // 80% efficiency when pushing
-    private let suctionEfficiency: Double = 0.9    // 90% efficiency when pulling
-    private let balancingRate: Double = 0.05       // Rate for auto-balancing
-    private let balanceThreshold: Double = 0.01    // Minimum difference to trigger balance
+    /// Efficiency of pushing energy (Blowing) - represents energy loss in active transfer
+    /// Physical work: 20% loss due to inefficiency (muscle to mental conversion)
+    private let muscleTransferEfficiency: Double = 0.8
+    
+    /// Efficiency of pulling energy (Suction) - represents more targeted retrieval
+    /// Mental work: 10% loss, more efficient than physical push
+    private let mindTransferEfficiency: Double = 0.9
+    
+    /// Rate at which balancing occurs per iteration
+    private let balancingRate: Double = 0.05
+    
+    /// Minimum energy difference (ε) to trigger equilibration
+    /// Below this threshold, system is considered at stable attractor (Lyapunov zero-crossing)
+    private let equilibriumThreshold: Double = 0.01
     
     // MARK: - Routing Logic
     
@@ -82,7 +92,7 @@ class EnergyRouter {
         }
         
         // Blowing has lower efficiency (some energy lost in the push)
-        let transferredAmount = amount * blowingEfficiency
+        let transferredAmount = amount * muscleTransferEfficiency
         
         return RoutingResult(
             success: true,
@@ -118,7 +128,7 @@ class EnergyRouter {
         }
         
         // Suction has higher efficiency (more targeted pull)
-        let transferredAmount = amount * suctionEfficiency
+        let transferredAmount = amount * mindTransferEfficiency
         
         return RoutingResult(
             success: true,
@@ -140,7 +150,7 @@ class EnergyRouter {
         let energy2 = getEnergy(for: realm2, in: state)
         
         let difference = abs(energy1 - energy2)
-        guard difference > balanceThreshold else {
+        guard difference > equilibriumThreshold else {
             return RoutingResult(
                 success: true,
                 message: "Realms already balanced",
