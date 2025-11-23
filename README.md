@@ -49,6 +49,14 @@ This application embraces:
 
 ## Key Features
 
+### ⚡️ EnergyRouter (Erlang/OTP Inspired)
+A message-passing router that manages energy flows:
+- **Blowing**: Active push of energy (80% efficiency)
+- **Suction**: Active pull of energy (90% efficiency)
+- **Auto-Balance**: Equilibrates energy between realms
+- Inspired by Erlang/OTP's gen_server pattern
+- Message-based routing with immutable state transformations
+
 ### 🔄 The Unified Grand Loop
 A continuous physics simulation that:
 - Transfers energy between Locker Room and Library
@@ -85,12 +93,14 @@ Record insights from any realm:
 ```
 FaithQuest/
 ├── Models/
-│   └── OmniTheorem.swift          # The Truth - immutable data models
+│   ├── OmniTheorem.swift          # The Truth - immutable data models
+│   └── EnergyRouter.swift         # Erlang/OTP-inspired router with Blowing/Suction
 ├── ViewModels/
 │   └── PhysicsEngine.swift        # The Proof - logic loop with Combine
 ├── Views/
 │   ├── ContentView.swift          # Main tab navigation
 │   ├── SimulationDeck.swift       # Unified grand loop interface
+│   ├── RouterControlView.swift    # Energy router control panel
 │   ├── LockerRoomView.swift       # Physical realm interface
 │   ├── LibraryView.swift          # Intellectual realm interface
 │   └── TheoremListView.swift      # Historical theorem display
@@ -132,10 +142,28 @@ swift test
 ## Usage
 
 1. **Explore the Grand Loop**: Start on the Simulation Deck to see the unified system
-2. **Train in the Locker Room**: Boost physical energy and record insights
-3. **Study in the Library**: Increase wisdom and document discoveries
-4. **Strengthen the Bridge**: Connect both realms for maximum harmony
-5. **Review Theorems**: Browse all recorded insights across devices
+2. **Control Energy Flow**: Use the Router tab to actively manage energy distribution
+3. **Train in the Locker Room**: Boost physical energy and record insights
+4. **Study in the Library**: Increase wisdom and document discoveries
+5. **Strengthen the Bridge**: Connect both realms for maximum harmony
+6. **Review Theorems**: Browse all recorded insights across devices
+
+### Using the Energy Router
+
+The Router tab provides direct control over energy flows:
+
+```swift
+// Blowing: Push energy from one realm to another (80% efficient)
+engine.blowLockerToLibrary(amount: 0.1)
+
+// Suction: Pull energy from one realm to another (90% efficient)
+engine.suckLibraryToLocker(amount: 0.1)
+
+// Auto-Balance: Equilibrate energy between realms
+engine.autoBalanceEnergy()
+```
+
+**Strategy Tip**: Suction is more efficient than Blowing, so pull energy when possible!
 
 ## Philosophy in Code
 
@@ -155,7 +183,23 @@ var harmony: Double {
     let balance = 1.0 - abs(lockerRoomEnergy - libraryWisdom)
     return balance * bridgeStrength
 }
+
+// Erlang/OTP-inspired message routing
+let message = EnergyMessage.blow(from: .lockerRoom, to: .library, amount: 0.1)
+let result = router.route(message, currentState: state)
+if result.success {
+    state = router.applyRoutingResult(result, to: state)
+}
 ```
+
+### Erlang/OTP Inspiration
+
+The EnergyRouter takes inspiration from Erlang's gen_server pattern:
+- **Message Passing**: Energy flows are represented as messages
+- **Process Routing**: Router manages distribution of energy between "processes" (realms)
+- **Supervision**: Auto-balance acts like a supervisor maintaining equilibrium
+- **Fire-and-forget**: Blowing is like `send/2` - push and move on
+- **Targeted Receive**: Suction is like `receive` - more efficient, targeted pull
 
 ## The Grand Vision
 

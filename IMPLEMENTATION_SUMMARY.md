@@ -13,17 +13,27 @@ FaithQuest is a complete iOS application implementing the **Unified Grand Loop**
 A pure MVVM architecture with functional programming principles:
 
 ### Model: OmniTheorem (The Truth)
-**File:** `FaithQuest/Models/OmniTheorem.swift`
+**Files:** 
+- `FaithQuest/Models/OmniTheorem.swift`
+- `FaithQuest/Models/EnergyRouter.swift`
 
 - `OmniTheorem`: Immutable struct representing insights from any realm
 - `UnifiedState`: Complete system state with harmony calculations
 - `CloudKitSyncManager`: iCloud synchronization with detailed error logging
+- `EnergyRouter`: Erlang/OTP-inspired message router for energy flows
 
 **Key Principles:**
 - All models are `Codable` for CloudKit
 - All models are `Identifiable` for SwiftUI
 - Immutable structs (value types, not classes)
 - Field-specific error logging for debugging
+- Message-passing pattern inspired by Erlang/OTP
+
+**EnergyRouter Features:**
+- **Blowing**: Push energy with 80% efficiency (fire-and-forget)
+- **Suction**: Pull energy with 90% efficiency (targeted receive)
+- **Auto-Balance**: Supervisor-like equilibration between realms
+- Message-based routing with `EnergyMessage` enum
 
 ### ViewModel: PhysicsEngine (The Proof)
 **File:** `FaithQuest/ViewModels/PhysicsEngine.swift`
@@ -38,26 +48,34 @@ A pure MVVM architecture with functional programming principles:
 - Pure state transformations (no mutation)
 - Named constants for physics parameters
 - Lifecycle-aware (pauses when backgrounded)
+- Integrated `EnergyRouter` for Erlang/OTP-style energy management
 
 **Physics Constants:**
 - `energyTransferRate = 0.01`: Energy flow per loop
 - `decayRate = 0.005`: Natural energy decay
 - `logicLoopInterval = 1.0`: Loop frequency in seconds
 
+**Router Operations:**
+- `blowLockerToLibrary()`: Push energy with 80% efficiency
+- `suckLibraryToLocker()`: Pull energy with 90% efficiency  
+- `autoBalanceEnergy()`: Supervisor-like equilibration
+
 ### View: SwiftUI Interfaces
 **Files:** `FaithQuest/Views/*.swift`
 
-Four main views:
+Five main views:
 1. **SimulationDeck**: Unified overview of the grand loop
-2. **LockerRoomView**: Physical realm interface
-3. **LibraryView**: Intellectual realm interface
-4. **TheoremListView**: Historical record of insights
+2. **RouterControlView**: Energy router control panel with Blowing/Suction
+3. **LockerRoomView**: Physical realm interface
+4. **LibraryView**: Intellectual realm interface
+5. **TheoremListView**: Historical record of insights
 
 **Key Features:**
 - Tab-based navigation in ContentView
 - SwiftUI previews for all views
 - Proper alert dismissal with @State
 - Loading indicators for async operations
+- Interactive router controls for energy management
 
 ## Project Structure
 
@@ -67,12 +85,14 @@ FaithQuest/
 │   ├── App/
 │   │   └── FaithQuestApp.swift          # Entry point with lifecycle management
 │   ├── Models/
-│   │   └── OmniTheorem.swift            # Data models + CloudKit
+│   │   ├── OmniTheorem.swift            # Data models + CloudKit
+│   │   └── EnergyRouter.swift           # Erlang/OTP-inspired router
 │   ├── ViewModels/
 │   │   └── PhysicsEngine.swift          # Business logic with Combine
 │   ├── Views/
 │   │   ├── ContentView.swift            # Tab navigation
 │   │   ├── SimulationDeck.swift         # Grand Loop UI
+│   │   ├── RouterControlView.swift      # Energy router control panel
 │   │   ├── LockerRoomView.swift         # Physical realm UI
 │   │   ├── LibraryView.swift            # Intellectual realm UI
 │   │   └── TheoremListView.swift        # History UI
@@ -80,6 +100,7 @@ FaithQuest/
 │   └── Info.plist                       # App configuration
 ├── FaithQuestTests/
 │   ├── OmniTheoremTests.swift           # Model tests
+│   ├── EnergyRouterTests.swift          # Router tests
 │   └── PhysicsEngineTests.swift         # ViewModel tests
 ├── .github/workflows/
 │   └── ios-build.yml                    # CI/CD pipeline
