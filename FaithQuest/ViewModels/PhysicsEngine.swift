@@ -22,6 +22,9 @@ class PhysicsEngine: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let syncManager = CloudKitSyncManager.shared
     
+    // The energy router - inspired by Erlang/OTP
+    private let router = EnergyRouter()
+    
     // The logic loop timer - runs continuously
     private var loopTimer: AnyCancellable?
     private var isLoopActive: Bool = true
@@ -85,6 +88,11 @@ class PhysicsEngine: ObservableObject {
     // MARK: - Theorem Operations
     
     /// Add a new theorem to the unified state
+    /// Bridge strength updates based on theorem category:
+    /// - .bridge theorems: 10% boost (direct connection work)
+    /// - Other categories: 5% boost (indirect strengthening)
+    /// Note: Router operations (blow/suck) do NOT affect bridge strength;
+    /// only recording insights strengthens the bridge
     func addTheorem(content: String, category: OmniTheorem.Category) async {
         let theorem = OmniTheorem(content: content, category: category)
         
@@ -96,6 +104,7 @@ class PhysicsEngine: ObservableObject {
             let newTheorems = state.theorems + [theorem]
             
             // Update bridge strength based on category
+            // Bridge insights have greater impact than realm-specific insights
             let bridgeBoost = category == .bridge ? 0.1 : 0.05
             let newBridgeStrength = min(1.0, state.bridgeStrength + bridgeBoost)
             
@@ -175,5 +184,52 @@ class PhysicsEngine: ObservableObject {
             libraryWisdom: newWisdom,
             bridgeStrength: state.bridgeStrength
         )
+    }
+    
+    // MARK: - Router Operations (Erlang/OTP inspired)
+    
+    /// Blow energy from Locker Room to Library
+    /// Active push with 80% efficiency
+    func blowLockerToLibrary(amount: Double = 0.1) {
+        let result = router.blowLockerToLibrary(amount: amount, state: state)
+        if result.success {
+            state = router.applyRoutingResult(result, to: state)
+        }
+    }
+    
+    /// Blow energy from Library to Locker Room
+    /// Active push with 80% efficiency
+    func blowLibraryToLocker(amount: Double = 0.1) {
+        let result = router.blowLibraryToLocker(amount: amount, state: state)
+        if result.success {
+            state = router.applyRoutingResult(result, to: state)
+        }
+    }
+    
+    /// Suck energy from Library to Locker Room
+    /// Active pull with 90% efficiency (more efficient)
+    func suckLibraryToLocker(amount: Double = 0.1) {
+        let result = router.suckLibraryToLocker(amount: amount, state: state)
+        if result.success {
+            state = router.applyRoutingResult(result, to: state)
+        }
+    }
+    
+    /// Suck energy from Locker Room to Library
+    /// Active pull with 90% efficiency (more efficient)
+    func suckLockerToLibrary(amount: Double = 0.1) {
+        let result = router.suckLockerToLibrary(amount: amount, state: state)
+        if result.success {
+            state = router.applyRoutingResult(result, to: state)
+        }
+    }
+    
+    /// Auto-balance energy between Locker Room and Library
+    /// Inspired by Erlang/OTP supervisor balancing
+    func autoBalanceEnergy() {
+        let result = router.autoBalance(state: state)
+        if result.success {
+            state = router.applyRoutingResult(result, to: state)
+        }
     }
 }

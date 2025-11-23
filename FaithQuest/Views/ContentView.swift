@@ -18,6 +18,11 @@ struct ContentView: View {
                     Label("Grand Loop", systemImage: "circle.hexagongrid.fill")
                 }
             
+            RouterControlView(engine: engine)
+                .tabItem {
+                    Label("Router", systemImage: "arrow.triangle.branch")
+                }
+            
             LockerRoomView(engine: engine)
                 .tabItem {
                     Label("Locker Room", systemImage: "figure.strengthtraining.traditional")
