@@ -24,6 +24,11 @@ class PhysicsEngine: ObservableObject {
     
     // The logic loop timer - runs continuously
     private var loopTimer: AnyCancellable?
+    private var isLoopActive: Bool = true
+    
+    // Physics constants
+    private let energyTransferRate: Double = 0.01
+    private let logicLoopInterval: TimeInterval = 1.0
     
     init(initialState: UnifiedState = UnifiedState()) {
         self.state = initialState
@@ -34,21 +39,31 @@ class PhysicsEngine: ObservableObject {
     
     /// Setup the continuous logic loop that processes the unified state
     private func setupLogicLoop() {
-        // Run the logic loop every second
-        loopTimer = Timer.publish(every: 1.0, on: .main, in: .common)
+        // Run the logic loop periodically
+        loopTimer = Timer.publish(every: logicLoopInterval, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                self?.processLogicLoop()
+                guard let self = self, self.isLoopActive else { return }
+                self.processLogicLoop()
             }
+    }
+    
+    /// Pause the logic loop (for background state or battery saving)
+    func pauseLogicLoop() {
+        isLoopActive = false
+    }
+    
+    /// Resume the logic loop
+    func resumeLogicLoop() {
+        isLoopActive = true
     }
     
     /// Process one iteration of the logic loop
     /// In functional programming, we describe new worlds rather than mutating the current one
     private func processLogicLoop() {
         // Apply physics: Energy flows between locker room and library
-        let energyTransfer = 0.01
-        let newLockerEnergy = min(1.0, state.lockerRoomEnergy + energyTransfer * state.bridgeStrength)
-        let newLibraryWisdom = min(1.0, state.libraryWisdom + energyTransfer * state.bridgeStrength)
+        let newLockerEnergy = min(1.0, state.lockerRoomEnergy + energyTransferRate * state.bridgeStrength)
+        let newLibraryWisdom = min(1.0, state.libraryWisdom + energyTransferRate * state.bridgeStrength)
         
         // Create new state (functional approach - immutability)
         state = UnifiedState(

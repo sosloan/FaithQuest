@@ -84,17 +84,23 @@ class CloudKitSyncManager {
         let results = try await database.records(matching: query)
         
         return results.matchResults.compactMap { _, result in
-            guard let record = try? result.get(),
-                  let idString = record["id"] as? String,
-                  let id = UUID(uuidString: idString),
-                  let timestamp = record["timestamp"] as? Date,
-                  let content = record["content"] as? String,
-                  let categoryString = record["category"] as? String,
-                  let category = OmniTheorem.Category(rawValue: categoryString) else {
+            do {
+                let record = try result.get()
+                guard let idString = record["id"] as? String,
+                      let id = UUID(uuidString: idString),
+                      let timestamp = record["timestamp"] as? Date,
+                      let content = record["content"] as? String,
+                      let categoryString = record["category"] as? String,
+                      let category = OmniTheorem.Category(rawValue: categoryString) else {
+                    print("Warning: Failed to parse CloudKit record fields")
+                    return nil
+                }
+                
+                return OmniTheorem(id: id, timestamp: timestamp, content: content, category: category)
+            } catch {
+                print("Error parsing CloudKit record: \(error.localizedDescription)")
                 return nil
             }
-            
-            return OmniTheorem(id: id, timestamp: timestamp, content: content, category: category)
         }
     }
 }

@@ -12,6 +12,7 @@ import SwiftUI
 struct FaithQuestApp: App {
     // The Physics Engine - our single source of truth
     @StateObject private var engine = PhysicsEngine()
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +23,16 @@ struct FaithQuestApp: App {
                         await engine.syncFromCloud()
                     }
                 }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .active:
+                engine.resumeLogicLoop()
+            case .inactive, .background:
+                engine.pauseLogicLoop()
+            @unknown default:
+                break
+            }
         }
     }
 }

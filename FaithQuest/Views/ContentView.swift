@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var engine: PhysicsEngine
+    @State private var showError: Bool = false
     
     var body: some View {
         TabView {
@@ -42,7 +43,10 @@ struct ContentView: View {
                     .padding()
             }
         }
-        .alert("Error", isPresented: .constant(engine.errorMessage != nil), presenting: engine.errorMessage) { _ in
+        .onChange(of: engine.errorMessage) { newValue in
+            showError = newValue != nil
+        }
+        .alert("Error", isPresented: $showError, presenting: engine.errorMessage) { _ in
             Button("OK") {
                 engine.errorMessage = nil
             }
