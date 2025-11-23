@@ -5,6 +5,22 @@
 //  The Router - Inspired by Erlang/OTP gen_server pattern
 //  Manages energy flow with Blowing (push) and Suction (pull) mechanics
 //
+//  FORMAL SPECIFICATION COMPLIANCE:
+//  This implementation conforms to "Spécification Formelle: EnergyRouter v1.0"
+//
+//  §1 Immutability: All state transformations create new states
+//  §2 Physics Constants: muscleTransferEfficiency=0.8, mindTransferEfficiency=0.9
+//  §3 Routing Mechanisms: blow (send/2), suck (receive), autoBalance (supervisor)
+//  §4 Boundary Constraints: Energy domain [0.0, 1.0], conservation with loss
+//  §5 Bridge Strength: Router operations do NOT affect bridge strength
+//  §6 Harmony: harmonie = (1.0 - |Δé|) × force_pont
+//  §7 Message Passing: EnergyMessage enum with route() dispatcher
+//  §8 Test Requirements: 20+ tests with explicit calculations
+//  §9 Domain Semantics: muscle*/mind* prefixes, equilibrium* for Lyapunov
+//  §10 Erlang/OTP: gen_server pattern, supervisor auto-balance, no shared state
+//
+//  Lyapunov Stability: V̇ ≤ -α₀(1 + μ(t))V where α₀ = 0.2 (max loss rate)
+//
 
 import Foundation
 import Combine
