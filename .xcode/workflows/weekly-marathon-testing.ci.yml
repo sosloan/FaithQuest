@@ -1,0 +1,54 @@
+---
+version: 1
+env:
+  SWIFTCHECK_MAX_TESTS: 200000  # Maximum iterations for weekly marathon
+  SWIFTCHECK_MAX_SIZE: 5000
+  SWIFTCHECK_MAX_DISCARD_RATIO: 20
+name: Weekly Marathon Testing
+trigger:
+  schedule:
+    - cron: '0 4 * * 0'  # Weekly on Sunday at 4 AM UTC
+      branches:
+        - main
+    - cron: '0 4 * * 3'  # Weekly on Wednesday at 4 AM UTC
+      branches:
+        - main
+actions:
+  - name: Ultra Marathon Tests - iPhone Series
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Pro Max'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 50
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Ultra Marathon Tests - iPad Series
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPad Pro (12.9-inch)'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 50
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Cross-Device Property Validation
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone SE (3rd generation)'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 30
+    actions:
+      - test
+    environment:
+      xcode: latest

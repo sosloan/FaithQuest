@@ -1,0 +1,34 @@
+---
+version: 1
+name: Build and Archive
+trigger:
+  branches:
+    - main
+  tags:
+    - 'v*'
+actions:
+  - name: Build for Testing
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Pro'
+    scheme: FaithQuest
+    actions:
+      - build-for-testing
+    environment:
+      xcode: latest
+      
+  - name: Archive for Distribution
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'Any iOS Device'
+    scheme: FaithQuest
+    actions:
+      - archive
+    environment:
+      xcode: latest
+    post-actions:
+      - name: Export IPA
+        script: |
+          echo "Archive created successfully"

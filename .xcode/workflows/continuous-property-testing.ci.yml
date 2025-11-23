@@ -1,0 +1,39 @@
+---
+version: 1
+env:
+  SWIFTCHECK_MAX_TESTS: 10000  # Increase property test iterations for intensive compute
+name: Continuous Property Testing
+trigger:
+  branches:
+    - main
+    - develop
+    - 'feature/*'
+    - 'bugfix/*'
+  pull-requests:
+    - main
+    - develop
+actions:
+  - name: Build and Test
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Pro'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 3  # Run tests multiple times to find edge cases
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Build and Test (iPad)
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPad Pro (12.9-inch)'
+    scheme: FaithQuest
+    test-plan: Default
+    actions:
+      - test
+    environment:
+      xcode: latest
