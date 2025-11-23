@@ -86,13 +86,30 @@ class CloudKitSyncManager {
         return results.matchResults.compactMap { _, result in
             do {
                 let record = try result.get()
+                
+                // Validate and extract ID
                 guard let idString = record["id"] as? String,
-                      let id = UUID(uuidString: idString),
-                      let timestamp = record["timestamp"] as? Date,
-                      let content = record["content"] as? String,
-                      let categoryString = record["category"] as? String,
+                      let id = UUID(uuidString: idString) else {
+                    print("Warning: Failed to parse 'id' field from CloudKit record: \(record.recordID)")
+                    return nil
+                }
+                
+                // Validate and extract timestamp
+                guard let timestamp = record["timestamp"] as? Date else {
+                    print("Warning: Failed to parse 'timestamp' field from CloudKit record: \(record.recordID)")
+                    return nil
+                }
+                
+                // Validate and extract content
+                guard let content = record["content"] as? String else {
+                    print("Warning: Failed to parse 'content' field from CloudKit record: \(record.recordID)")
+                    return nil
+                }
+                
+                // Validate and extract category
+                guard let categoryString = record["category"] as? String,
                       let category = OmniTheorem.Category(rawValue: categoryString) else {
-                    print("Warning: Failed to parse CloudKit record fields")
+                    print("Warning: Failed to parse 'category' field from CloudKit record: \(record.recordID)")
                     return nil
                 }
                 

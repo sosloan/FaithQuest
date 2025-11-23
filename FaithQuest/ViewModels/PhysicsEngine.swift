@@ -62,8 +62,16 @@ class PhysicsEngine: ObservableObject {
     /// In functional programming, we describe new worlds rather than mutating the current one
     private func processLogicLoop() {
         // Apply physics: Energy flows between locker room and library
-        let newLockerEnergy = min(1.0, state.lockerRoomEnergy + energyTransferRate * state.bridgeStrength)
-        let newLibraryWisdom = min(1.0, state.libraryWisdom + energyTransferRate * state.bridgeStrength)
+        // Energy naturally decays slightly to create interesting dynamics
+        let decayRate: Double = 0.005
+        let transferAmount = energyTransferRate * state.bridgeStrength
+        
+        // Calculate new energy values with decay and transfer
+        let decayedLockerEnergy = max(0.0, state.lockerRoomEnergy - decayRate)
+        let decayedLibraryWisdom = max(0.0, state.libraryWisdom - decayRate)
+        
+        let newLockerEnergy = min(1.0, decayedLockerEnergy + transferAmount)
+        let newLibraryWisdom = min(1.0, decayedLibraryWisdom + transferAmount)
         
         // Create new state (functional approach - immutability)
         state = UnifiedState(
