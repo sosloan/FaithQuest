@@ -170,10 +170,23 @@ The app uses standard print statements for debugging. To see logs:
 
 ## Continuous Integration
 
-The project includes a GitHub Actions workflow (`.github/workflows/ios-build.yml`) that:
+The project includes multiple CI/CD systems:
+
+### GitHub Actions
+A GitHub Actions workflow (`.github/workflows/ios-build.yml`) that:
 - Builds the app on macOS runners
 - Runs all unit tests
 - Reports build status
+
+### Xcode Cloud
+Comprehensive Xcode Cloud workflows (`.xcode/workflows/*.ci.yml`) designed to maximize monthly compute for intensive property-based testing:
+- **Continuous**: Run on every push for fast feedback
+- **Intensive**: Every 6 hours with 50K test iterations
+- **Daily**: Comprehensive testing 2x per day
+- **Nightly**: Marathon stress tests 2x per day
+- **Weekly**: Ultra-intensive testing 2x per week
+
+See [XCODE_CLOUD.md](XCODE_CLOUD.md) for complete configuration and compute optimization strategy.
 
 ## Contributing
 

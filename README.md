@@ -145,6 +145,10 @@ FaithQuest includes comprehensive property-based tests using SwiftCheck (QuickCh
 
 > "In π's infinite digits, primes hide like gems. The polymath finds them where specialists see only chaos." - Moving from path coverage (99.1%) to behavioral coverage (∞)
 
+### Xcode Cloud Workflows
+
+The repository is configured with **Xcode Cloud workflows** to maximize monthly compute hours for intensive property-based testing. Multiple workflows run continuously, daily, and weekly to explore vast input spaces and find edge cases. See [XCODE_CLOUD.md](XCODE_CLOUD.md) for complete configuration details.
+
 ## Usage
 
 1. **Explore the Grand Loop**: Start on the Simulation Deck to see the unified system

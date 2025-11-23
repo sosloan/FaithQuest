@@ -1,0 +1,69 @@
+---
+version: 1
+env:
+  SWIFTCHECK_MAX_TESTS: 25000
+  SWIFTCHECK_MAX_SIZE: 500
+  SWIFTCHECK_MAX_DISCARD_RATIO: 10
+name: Daily Comprehensive Testing
+trigger:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+      branches:
+        - main
+        - develop
+    - cron: '0 14 * * *'  # Daily at 2 PM UTC
+      branches:
+        - main
+        - develop
+actions:
+  - name: Full Test Suite - iPhone 15
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 10
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Full Test Suite - iPhone 15 Plus
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Plus'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 10
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Full Test Suite - iPad Pro
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPad Pro (11-inch)'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 10
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Full Test Suite - iPad Air
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPad Air (5th generation)'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 10
+    actions:
+      - test
+    environment:
+      xcode: latest

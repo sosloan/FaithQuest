@@ -1,0 +1,52 @@
+---
+version: 1
+env:
+  SWIFTCHECK_MAX_TESTS: 50000  # Maximum property test iterations
+  SWIFTCHECK_MAX_SIZE: 1000
+  SWIFTCHECK_MAX_DISCARD_RATIO: 10
+name: Intensive Property Tests
+trigger:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+      branches:
+        - main
+        - develop
+actions:
+  - name: Intensive Physics Engine Tests
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Pro Max'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 5
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Intensive Energy Router Tests
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone 15 Pro'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 5
+    actions:
+      - test
+    environment:
+      xcode: latest
+      
+  - name: Stress Test on Multiple Devices
+    platform: iOS
+    runtime:
+      version: '17.0'
+      device: 'iPhone SE (3rd generation)'
+    scheme: FaithQuest
+    test-plan: Default
+    test-repetitions: 3
+    actions:
+      - test
+    environment:
+      xcode: latest
