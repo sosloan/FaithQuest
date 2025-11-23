@@ -10,9 +10,11 @@ trigger:
     - cron: '0 0 * * *'  # Daily at midnight UTC
       branches:
         - main
+        - develop
     - cron: '0 12 * * *'  # Daily at noon UTC
       branches:
         - main
+        - develop
 actions:
   - name: Marathon Property Tests - Device 1
     platform: iOS

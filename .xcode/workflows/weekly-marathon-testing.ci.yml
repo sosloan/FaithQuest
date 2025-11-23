@@ -10,9 +10,11 @@ trigger:
     - cron: '0 4 * * 0'  # Weekly on Sunday at 4 AM UTC
       branches:
         - main
+        - develop
     - cron: '0 4 * * 3'  # Weekly on Wednesday at 4 AM UTC
       branches:
         - main
+        - develop
 actions:
   - name: Ultra Marathon Tests - iPhone Series
     platform: iOS

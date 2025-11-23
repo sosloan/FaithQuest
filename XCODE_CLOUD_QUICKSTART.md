@@ -66,13 +66,17 @@ Daily:         ~60h  (2×/day × 45 min × 30 days)
 Nightly:      ~150h  (2×/day × 60 min × 30 days)
 Weekly:        ~48h  (2×/week × 120 min × 4 weeks)
 ────────────────────
-TOTAL:        ~305h/month
+TOTAL:        ~305h/month (theoretical demand)
 
-Free Tier:      25h/month
-Utilization: 1,220% (queue-managed by Apple)
+Free Tier:      25h/month (actual allocation)
+Target Demand: 1,220% of free tier
+
+Note: This represents the theoretical compute demand across all 
+workflows. Apple's Xcode Cloud automatically manages the queue 
+and throttles execution to stay within your 25h/month free tier 
+allocation. Workflows are queued and executed based on Apple's 
+priority system.
 ```
-
-Note: Apple manages queue priorities. With 25h free tier, workflows will be throttled/queued appropriately.
 
 ## 🧪 What's Being Tested
 
