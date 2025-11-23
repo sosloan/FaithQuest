@@ -139,6 +139,12 @@ swift build
 swift test
 ```
 
+### Property-Based Testing
+
+FaithQuest includes comprehensive property-based tests using SwiftCheck (QuickCheck for Swift) to ensure behavioral correctness across infinite input spaces. See [PROPERTY_TESTING.md](PROPERTY_TESTING.md) for details.
+
+> "In π's infinite digits, primes hide like gems. The polymath finds them where specialists see only chaos." - Moving from path coverage (99.1%) to behavioral coverage (∞)
+
 ## Usage
 
 1. **Explore the Grand Loop**: Start on the Simulation Deck to see the unified system
