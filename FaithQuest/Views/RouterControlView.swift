@@ -13,6 +13,11 @@ import SwiftUI
 struct RouterControlView: View {
     @ObservedObject var engine: PhysicsEngine
     
+    /// Helper to convert energy to percentage
+    private func energyPercentage(_ energy: Double) -> Int {
+        return Int(energy * 100)
+    }
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -36,7 +41,7 @@ struct RouterControlView: View {
                                 .font(.subheadline)
                             ProgressView(value: engine.state.lockerRoomEnergy, total: 1.0)
                                 .tint(.orange)
-                            Text("\(Int(engine.state.lockerRoomEnergy * 100))%")
+                            Text("\(energyPercentage(engine.state.lockerRoomEnergy))%")
                                 .font(.caption)
                         }
                         .frame(maxWidth: .infinity)
@@ -46,7 +51,7 @@ struct RouterControlView: View {
                                 .font(.subheadline)
                             ProgressView(value: engine.state.libraryWisdom, total: 1.0)
                                 .tint(.blue)
-                            Text("\(Int(engine.state.libraryWisdom * 100))%")
+                            Text("\(energyPercentage(engine.state.libraryWisdom))%")
                                 .font(.caption)
                         }
                         .frame(maxWidth: .infinity)

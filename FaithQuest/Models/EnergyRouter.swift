@@ -39,6 +39,7 @@ class EnergyRouter {
     private let blowingEfficiency: Double = 0.8    // 80% efficiency when pushing
     private let suctionEfficiency: Double = 0.9    // 90% efficiency when pulling
     private let balancingRate: Double = 0.05       // Rate for auto-balancing
+    private let balanceThreshold: Double = 0.01    // Minimum difference to trigger balance
     
     // MARK: - Routing Logic
     
@@ -139,7 +140,7 @@ class EnergyRouter {
         let energy2 = getEnergy(for: realm2, in: state)
         
         let difference = abs(energy1 - energy2)
-        guard difference > 0.01 else {
+        guard difference > balanceThreshold else {
             return RoutingResult(
                 success: true,
                 message: "Realms already balanced",
@@ -218,7 +219,7 @@ class EnergyRouter {
     
     /// Clamp value between min and max
     private func clamp(_ value: Double, min: Double, max: Double) -> Double {
-        return Swift.min(Swift.max(value, min), max)
+        return min(max(value, min), max)
     }
 }
 

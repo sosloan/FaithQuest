@@ -39,7 +39,7 @@ final class EnergyRouterTests: XCTestCase {
         // Then
         XCTAssertTrue(result.success)
         XCTAssertEqual(result.deltaEnergies[.lockerRoom], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.library]!, 0.16, accuracy: 0.01) // 80% efficiency
+        XCTAssertEqual(result.deltaEnergies[.library]!, 0.2 * 0.8, accuracy: 0.01) // 80% efficiency
     }
     
     func testBlowingFromLibraryToLocker() {
@@ -49,7 +49,7 @@ final class EnergyRouterTests: XCTestCase {
         // Then
         XCTAssertTrue(result.success)
         XCTAssertEqual(result.deltaEnergies[.library], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.16, accuracy: 0.01) // 80% efficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.2 * 0.8, accuracy: 0.01) // 80% efficiency
     }
     
     func testBlowingInsufficientEnergy() {
@@ -79,7 +79,7 @@ final class EnergyRouterTests: XCTestCase {
         // Then
         XCTAssertTrue(result.success)
         XCTAssertEqual(result.deltaEnergies[.library], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.18, accuracy: 0.01) // 90% efficiency
+        XCTAssertEqual(result.deltaEnergies[.lockerRoom]!, 0.2 * 0.9, accuracy: 0.01) // 90% efficiency
     }
     
     func testSuckingFromLockerToLibrary() {
@@ -89,7 +89,7 @@ final class EnergyRouterTests: XCTestCase {
         // Then
         XCTAssertTrue(result.success)
         XCTAssertEqual(result.deltaEnergies[.lockerRoom], -0.2)
-        XCTAssertEqual(result.deltaEnergies[.library]!, 0.18, accuracy: 0.01) // 90% efficiency
+        XCTAssertEqual(result.deltaEnergies[.library]!, 0.2 * 0.9, accuracy: 0.01) // 90% efficiency
     }
     
     func testSuckingInsufficientEnergy() {
