@@ -1,0 +1,491 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA000001 /* FaithQuestApp.swift */ = {isa = PBXBuildFile; fileRef = FA000000 /* FaithQuestApp.swift */; };
+		FA000003 /* ContentView.swift */ = {isa = PBXBuildFile; fileRef = FA000002 /* ContentView.swift */; };
+		FA000005 /* OmniTheorem.swift */ = {isa = PBXBuildFile; fileRef = FA000004 /* OmniTheorem.swift */; };
+		FA000007 /* PhysicsEngine.swift */ = {isa = PBXBuildFile; fileRef = FA000006 /* PhysicsEngine.swift */; };
+		FA000009 /* LockerRoomView.swift */ = {isa = PBXBuildFile; fileRef = FA000008 /* LockerRoomView.swift */; };
+		FA00000B /* LibraryView.swift */ = {isa = PBXBuildFile; fileRef = FA00000A /* LibraryView.swift */; };
+		FA00000D /* SimulationDeck.swift */ = {isa = PBXBuildFile; fileRef = FA00000C /* SimulationDeck.swift */; };
+		FA00000F /* TheoremListView.swift */ = {isa = PBXBuildFile; fileRef = FA00000E /* TheoremListView.swift */; };
+		FA000011 /* OmniTheoremTests.swift */ = {isa = PBXBuildFile; fileRef = FA000010 /* OmniTheoremTests.swift */; };
+		FA000013 /* PhysicsEngineTests.swift */ = {isa = PBXBuildFile; fileRef = FA000012 /* PhysicsEngineTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA000000 /* FaithQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaithQuestApp.swift; sourceTree = "<group>"; };
+		FA000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA000004 /* OmniTheorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniTheorem.swift; sourceTree = "<group>"; };
+		FA000006 /* PhysicsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsEngine.swift; sourceTree = "<group>"; };
+		FA000008 /* LockerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerRoomView.swift; sourceTree = "<group>"; };
+		FA00000A /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		FA00000C /* SimulationDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationDeck.swift; sourceTree = "<group>"; };
+		FA00000E /* TheoremListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheoremListView.swift; sourceTree = "<group>"; };
+		FA000010 /* OmniTheoremTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniTheoremTests.swift; sourceTree = "<group>"; };
+		FA000012 /* PhysicsEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsEngineTests.swift; sourceTree = "<group>"; };
+		FA000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAAPP001 /* FaithQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaithQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FATEST01 /* FaithQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaithQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAFRAMEW /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FATESTFR /* Test Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAROOT00 = {
+			isa = PBXGroup;
+			children = (
+				FAGROUP1 /* FaithQuest */,
+				FAGROUP2 /* FaithQuestTests */,
+				FAPROD01 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FAGROUP1 /* FaithQuest */ = {
+			isa = PBXGroup;
+			children = (
+				FAGRPAPP /* App */,
+				FAGRPMOD /* Models */,
+				FAGRPVM /* ViewModels */,
+				FAGRPVW /* Views */,
+				FA000014 /* Info.plist */,
+			);
+			path = FaithQuest;
+			sourceTree = "<group>";
+		};
+		FAGRPAPP /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000 /* FaithQuestApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FAGRPMOD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA000004 /* OmniTheorem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FAGRPVM /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FA000006 /* PhysicsEngine.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FAGRPVW /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FA000002 /* ContentView.swift */,
+				FA000008 /* LockerRoomView.swift */,
+				FA00000A /* LibraryView.swift */,
+				FA00000C /* SimulationDeck.swift */,
+				FA00000E /* TheoremListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FAGROUP2 /* FaithQuestTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA000010 /* OmniTheoremTests.swift */,
+				FA000012 /* PhysicsEngineTests.swift */,
+			);
+			path = FaithQuestTests;
+			sourceTree = "<group>";
+		};
+		FAPROD01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAAPP001 /* FaithQuest.app */,
+				FATEST01 /* FaithQuestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FATARGET /* FaithQuest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FACONFIGL /* Build configuration list for PBXNativeTarget "FaithQuest" */;
+			buildPhases = (
+				FASOURCE1 /* Sources */,
+				FAFRAMEW /* Frameworks */,
+				FARESOUR /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaithQuest;
+			productName = FaithQuest;
+			productReference = FAAPP001 /* FaithQuest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FATARGT2 /* FaithQuestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FACFGTS2 /* Build configuration list for PBXNativeTarget "FaithQuestTests" */;
+			buildPhases = (
+				FASOURC2 /* Sources */,
+				FATESTFR /* Test Frameworks */,
+				FARESOS2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FADEPEND /* PBXTargetDependency */,
+			);
+			name = FaithQuestTests;
+			productName = FaithQuestTests;
+			productReference = FATEST01 /* FaithQuestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAPROJ01 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = FAPROJCL /* Build configuration list for PBXProject "FaithQuest" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAROOT00;
+			productRefGroup = FAPROD01 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FATARGET /* FaithQuest */,
+				FATARGT2 /* FaithQuestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FARESOUR /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FARESOS2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FASOURCE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000001 /* FaithQuestApp.swift */,
+				FA000003 /* ContentView.swift */,
+				FA000005 /* OmniTheorem.swift */,
+				FA000007 /* PhysicsEngine.swift */,
+				FA000009 /* LockerRoomView.swift */,
+				FA00000B /* LibraryView.swift */,
+				FA00000D /* SimulationDeck.swift */,
+				FA00000F /* TheoremListView.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FASOURC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000011 /* OmniTheoremTests.swift */,
+				FA000013 /* PhysicsEngineTests.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FADEPEND /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FATARGET /* FaithQuest */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FADEBUG1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FARELEAS /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FAAPPDEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FaithQuest/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faithquest.FaithQuest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAAPPREL /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FaithQuest/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faithquest.FaithQuest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FATESTDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faithquest.FaithQuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaithQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FaithQuest";
+			};
+			name = Debug;
+		};
+		FATESTRL /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.faithquest.FaithQuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaithQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FaithQuest";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAPROJCL /* Build configuration list for PBXProject "FaithQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FADEBUG1 /* Debug */,
+				FARELEAS /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FACONFIGL /* Build configuration list for PBXNativeTarget "FaithQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAAPPDEB /* Debug */,
+				FAAPPREL /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FACFGTS2 /* Build configuration list for PBXNativeTarget "FaithQuestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FATESTDB /* Debug */,
+				FATESTRL /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAPROJ01 /* Project object */;
+}
