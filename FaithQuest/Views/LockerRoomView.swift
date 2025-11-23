@@ -85,3 +85,7 @@ struct LockerRoomView: View {
         .padding()
     }
 }
+
+#Preview {
+    LockerRoomView(engine: PhysicsEngine())
+}

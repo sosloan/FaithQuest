@@ -119,3 +119,7 @@ struct SimulationDeck: View {
         .padding()
     }
 }
+
+#Preview {
+    SimulationDeck(engine: PhysicsEngine())
+}

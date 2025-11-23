@@ -71,6 +71,20 @@ struct TheoremListView: View {
     }
 }
 
+#Preview {
+    NavigationView {
+        TheoremListView(engine: PhysicsEngine(
+            initialState: UnifiedState(
+                theorems: [
+                    OmniTheorem(content: "Consistency builds character", category: .lockerRoom),
+                    OmniTheorem(content: "Knowledge compounds daily", category: .library),
+                    OmniTheorem(content: "Mind and body unite", category: .bridge)
+                ]
+            )
+        ))
+    }
+}
+
 struct TheoremRow: View {
     let theorem: OmniTheorem
     

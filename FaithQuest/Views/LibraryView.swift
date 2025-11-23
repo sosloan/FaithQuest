@@ -85,3 +85,7 @@ struct LibraryView: View {
         .padding()
     }
 }
+
+#Preview {
+    LibraryView(engine: PhysicsEngine())
+}
