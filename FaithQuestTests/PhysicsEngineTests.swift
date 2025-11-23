@@ -122,4 +122,99 @@ final class PhysicsEngineTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
         XCTAssertTrue(receivedUpdate)
     }
+    
+    // MARK: - Router Operations Tests
+    
+    func testBlowLockerToLibrary() {
+        // Given
+        let initialLockerEnergy = engine.state.lockerRoomEnergy
+        let initialLibraryWisdom = engine.state.libraryWisdom
+        
+        // When
+        engine.blowLockerToLibrary(amount: 0.1)
+        
+        // Then
+        XCTAssertLessThan(engine.state.lockerRoomEnergy, initialLockerEnergy)
+        XCTAssertGreaterThan(engine.state.libraryWisdom, initialLibraryWisdom)
+    }
+    
+    func testBlowLibraryToLocker() {
+        // Given
+        let initialLockerEnergy = engine.state.lockerRoomEnergy
+        let initialLibraryWisdom = engine.state.libraryWisdom
+        
+        // When
+        engine.blowLibraryToLocker(amount: 0.1)
+        
+        // Then
+        XCTAssertGreaterThan(engine.state.lockerRoomEnergy, initialLockerEnergy)
+        XCTAssertLessThan(engine.state.libraryWisdom, initialLibraryWisdom)
+    }
+    
+    func testSuckLibraryToLocker() {
+        // Given
+        let initialLockerEnergy = engine.state.lockerRoomEnergy
+        let initialLibraryWisdom = engine.state.libraryWisdom
+        
+        // When
+        engine.suckLibraryToLocker(amount: 0.1)
+        
+        // Then
+        XCTAssertGreaterThan(engine.state.lockerRoomEnergy, initialLockerEnergy)
+        XCTAssertLessThan(engine.state.libraryWisdom, initialLibraryWisdom)
+    }
+    
+    func testSuckLockerToLibrary() {
+        // Given
+        let initialLockerEnergy = engine.state.lockerRoomEnergy
+        let initialLibraryWisdom = engine.state.libraryWisdom
+        
+        // When
+        engine.suckLockerToLibrary(amount: 0.1)
+        
+        // Then
+        XCTAssertLessThan(engine.state.lockerRoomEnergy, initialLockerEnergy)
+        XCTAssertGreaterThan(engine.state.libraryWisdom, initialLibraryWisdom)
+    }
+    
+    func testAutoBalanceEnergy() {
+        // Given - Create imbalanced state
+        engine = PhysicsEngine(initialState: UnifiedState(
+            theorems: [],
+            lockerRoomEnergy: 0.8,
+            libraryWisdom: 0.2,
+            bridgeStrength: 0.5
+        ))
+        let initialDifference = abs(engine.state.lockerRoomEnergy - engine.state.libraryWisdom)
+        
+        // When
+        engine.autoBalanceEnergy()
+        
+        // Then
+        let newDifference = abs(engine.state.lockerRoomEnergy - engine.state.libraryWisdom)
+        XCTAssertLessThan(newDifference, initialDifference)
+    }
+    
+    func testSuctionMoreEfficientThanBlowing() {
+        // Given - Two engines with same initial state
+        let engine1 = PhysicsEngine(initialState: UnifiedState(
+            theorems: [],
+            lockerRoomEnergy: 0.5,
+            libraryWisdom: 0.5,
+            bridgeStrength: 0.5
+        ))
+        let engine2 = PhysicsEngine(initialState: UnifiedState(
+            theorems: [],
+            lockerRoomEnergy: 0.5,
+            libraryWisdom: 0.5,
+            bridgeStrength: 0.5
+        ))
+        
+        // When
+        engine1.blowLockerToLibrary(amount: 0.1)
+        engine2.suckLockerToLibrary(amount: 0.1)
+        
+        // Then - Suction should transfer more energy
+        XCTAssertGreaterThan(engine2.state.libraryWisdom, engine1.state.libraryWisdom)
+    }
 }
