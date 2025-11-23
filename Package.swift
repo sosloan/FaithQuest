@@ -15,7 +15,8 @@ let package = Package(
             targets: ["FaithQuest"]),
     ],
     dependencies: [
-        // No external dependencies - pure Apple ecosystem
+        // Property-based testing library (QuickCheck-style for Swift)
+        .package(url: "https://github.com/typelift/SwiftCheck.git", from: "0.12.0")
     ],
     targets: [
         .target(
@@ -25,7 +26,10 @@ let package = Package(
         ),
         .testTarget(
             name: "FaithQuestTests",
-            dependencies: ["FaithQuest"],
+            dependencies: [
+                "FaithQuest",
+                .product(name: "SwiftCheck", package: "SwiftCheck")
+            ],
             path: "FaithQuestTests"
         ),
     ]
