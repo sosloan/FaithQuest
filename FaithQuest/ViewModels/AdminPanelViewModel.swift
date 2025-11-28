@@ -240,11 +240,11 @@ class AdminPanelViewModel: ObservableObject {
         }
     }
     
-    /// Update engine state (requires access to engine's internal state setter)
+    /// Update engine state on main queue for thread safety
     private func updateEngineState(_ newState: UnifiedState) {
-        // Note: In production, PhysicsEngine would expose a method for admin state updates
-        // For now, we use the available methods
-        engine?.resetState(to: newState)
+        Task { @MainActor in
+            engine?.resetState(to: newState)
+        }
     }
     
     /// Generate test theorems for debugging
@@ -276,6 +276,8 @@ class AdminPanelViewModel: ObservableObject {
 extension PhysicsEngine {
     /// Reset state to a new value (for admin operations)
     /// This method enables admin control over the engine state
+    /// Must be called on the main queue to ensure thread safety
+    @MainActor
     func resetState(to newState: UnifiedState) {
         // Pause the loop during reset
         pauseLogicLoop()

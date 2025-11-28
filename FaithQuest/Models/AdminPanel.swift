@@ -224,7 +224,10 @@ protocol AdminPanelProtocol {
     /// Execute an admin command
     func execute(_ command: AdminCommand) -> AdminCommandResult
     
-    /// Get current system metrics
+    /// Get current system metrics from provided state
+    func refreshMetrics(from state: UnifiedState) -> AdminMetrics
+    
+    /// Get current system metrics with default state (for testing)
     func refreshMetrics() -> AdminMetrics
     
     /// Check if a command can be executed
@@ -310,13 +313,19 @@ class AdminPanelManager: AdminPanelProtocol {
         return result
     }
     
-    /// Refresh and return current metrics
-    func refreshMetrics() -> AdminMetrics {
+    /// Refresh and return current metrics from provided state
+    /// - Parameter state: The current UnifiedState to compute metrics from
+    /// - Returns: Updated AdminMetrics
+    func refreshMetrics(from state: UnifiedState) -> AdminMetrics {
         let uptime = Date().timeIntervalSince(startTime)
-        // Note: In real implementation, this would get state from PhysicsEngine
-        let metrics = AdminMetrics(from: UnifiedState(), uptime: uptime)
+        let metrics = AdminMetrics(from: state, uptime: uptime)
         adminState.metrics = metrics
         return metrics
+    }
+    
+    /// Refresh metrics with default state (for testing/initialization)
+    func refreshMetrics() -> AdminMetrics {
+        return refreshMetrics(from: UnifiedState())
     }
     
     /// Check if a command can be executed
