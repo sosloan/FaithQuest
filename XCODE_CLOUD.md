@@ -138,6 +138,29 @@ env:
   SWIFTCHECK_MAX_DISCARD_RATIO: 10   # Ratio of discarded to successful tests
 ```
 
+## Custom Build Scripts
+
+The `ci_scripts/` directory contains custom scripts that run at various stages of the Xcode Cloud build lifecycle:
+
+### Script Execution Order
+```
+1. Repository cloned by Xcode Cloud
+2. ci_post_clone.sh     ← Environment setup, SPM resolution
+3. ci_pre_xcodebuild.sh  ← Pre-build configuration
+4. xcodebuild <action>
+5. ci_post_xcodebuild.sh ← Result processing
+```
+
+### Scripts Included
+
+| Script | When | Purpose |
+|--------|------|---------|
+| `ci_post_clone.sh` | After clone | Sets up SwiftCheck environment, resolves dependencies |
+| `ci_pre_xcodebuild.sh` | Before build | Logs config, estimates test duration, prepares resources |
+| `ci_post_xcodebuild.sh` | After build | Processes results, reports metrics, logs status |
+
+See [ci_scripts/README.md](ci_scripts/README.md) for detailed documentation.
+
 ## Enabling Xcode Cloud
 
 To activate these workflows:
@@ -154,6 +177,7 @@ To activate these workflows:
 3. **Review Workflows**
    - Xcode will auto-detect `.xcode/workflows/*.ci.yml`
    - Review and enable desired workflows
+   - Custom scripts in `ci_scripts/` are automatically executed
 
 4. **Monitor Usage**
    - Check Xcode Cloud dashboard for compute usage
