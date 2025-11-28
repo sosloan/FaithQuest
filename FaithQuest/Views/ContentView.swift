@@ -9,7 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var engine: PhysicsEngine
+    @StateObject private var adminViewModel: AdminPanelViewModel
     @State private var showError: Bool = false
+    
+    init(engine: PhysicsEngine) {
+        self._engine = ObservedObject(wrappedValue: engine)
+        self._adminViewModel = StateObject(wrappedValue: AdminPanelViewModel(engine: engine))
+    }
     
     var body: some View {
         TabView {
@@ -36,6 +42,11 @@ struct ContentView: View {
             TheoremListView(engine: engine)
                 .tabItem {
                     Label("Theorems", systemImage: "doc.text.fill")
+                }
+            
+            AdminPanelView(viewModel: adminViewModel)
+                .tabItem {
+                    Label("Admin", systemImage: "gearshape.2.fill")
                 }
         }
         .overlay(alignment: .top) {
