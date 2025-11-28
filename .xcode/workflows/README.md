@@ -94,11 +94,24 @@ property("Energy stays in bounds") <- forAll { (energy: Double) in
 }
 ```
 
+## Custom Build Scripts
+
+The `ci_scripts/` directory contains scripts that run at each build stage:
+
+| Script | Purpose |
+|--------|---------|
+| `ci_post_clone.sh` | Environment setup, SPM resolution |
+| `ci_pre_xcodebuild.sh` | Pre-build logging and configuration |
+| `ci_post_xcodebuild.sh` | Result processing and metrics |
+
+See [ci_scripts/README.md](../../ci_scripts/README.md) for details.
+
 ## References
 
 - [Xcode Cloud User Guide](https://developer.apple.com/documentation/xcode/xcode-cloud)
 - [Workflow Configuration Schema](https://developer.apple.com/documentation/xcode/xcode-cloud-workflow-reference)
-- [Main Documentation](../XCODE_CLOUD.md)
+- [Custom Build Scripts](https://developer.apple.com/documentation/xcode/writing-custom-build-scripts)
+- [Main Documentation](../../XCODE_CLOUD.md)
 
 ---
 

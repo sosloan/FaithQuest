@@ -49,11 +49,26 @@ Every commit ██ Continuous (10K iterations)
 
 3. **Workflows Auto-Detected**
    - Xcode automatically finds `.xcode/workflows/*.ci.yml`
+   - Custom scripts in `ci_scripts/` run automatically
    - Review and enable desired workflows
 
 4. **Monitor Usage**
    - Xcode → Cloud tab
    - App Store Connect → Xcode Cloud
+
+## 📜 Custom CI Scripts
+
+The `ci_scripts/` directory contains build lifecycle scripts:
+
+```
+ci_scripts/
+├── ci_post_clone.sh     # Environment setup after clone
+├── ci_pre_xcodebuild.sh  # Pre-build configuration
+├── ci_post_xcodebuild.sh # Post-build result processing
+└── README.md             # Script documentation
+```
+
+These scripts automatically configure SwiftCheck environment variables and log test metrics.
 
 ## 📈 Expected Compute Usage
 
