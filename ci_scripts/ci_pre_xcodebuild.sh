@@ -40,8 +40,11 @@ if [ "${CI_XCODEBUILD_ACTION}" = "test" ] || [ "${CI_XCODEBUILD_ACTION}" = "buil
     sysctl -n hw.ncpu | awk '{print "  - CPU Cores: " $1}'
     
     # Estimate test duration based on iteration count
+    # ~5000 iterations per minute is a rough estimate for SwiftCheck property tests
+    # This varies based on test complexity and system resources
     ITERATIONS=${SWIFTCHECK_MAX_TESTS:-10000}
-    ESTIMATED_MINUTES=$((ITERATIONS / 5000))
+    ITERATIONS_PER_MINUTE=${CI_ITERATIONS_PER_MINUTE:-5000}
+    ESTIMATED_MINUTES=$((ITERATIONS / ITERATIONS_PER_MINUTE))
     if [ $ESTIMATED_MINUTES -lt 1 ]; then
         ESTIMATED_MINUTES=1
     fi

@@ -26,10 +26,12 @@ if [ "${CI_XCODEBUILD_ACTION}" = "test" ]; then
         echo "Result bundle found at: $CI_RESULT_BUNDLE_PATH"
         
         # Extract test summary if xcresulttool is available
+        # Limit output to avoid overwhelming logs - configurable via CI_RESULT_LINES (default: 50)
         if command -v xcresulttool &> /dev/null; then
+            RESULT_LINES=${CI_RESULT_LINES:-50}
             echo ""
-            echo "Test Summary:"
-            xcresulttool get --path "$CI_RESULT_BUNDLE_PATH" --format json 2>/dev/null | head -50 || echo "Unable to parse result bundle"
+            echo "Test Summary (first ${RESULT_LINES} lines):"
+            xcresulttool get --path "$CI_RESULT_BUNDLE_PATH" --format json 2>/dev/null | head -"${RESULT_LINES}" || echo "Unable to parse result bundle"
         fi
     else
         echo "No result bundle found or path not set"
