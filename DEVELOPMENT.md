@@ -54,20 +54,31 @@ FaithQuest/
 │   ├── App/
 │   │   └── FaithQuestApp.swift       # App entry point
 │   ├── Models/
-│   │   └── OmniTheorem.swift         # Data models & CloudKit sync
+│   │   ├── OmniTheorem.swift         # Data models & CloudKit sync
+│   │   ├── EnergyRouter.swift        # Erlang/OTP-inspired router
+│   │   └── AdminPanel.swift          # Protocol-oriented admin model
 │   ├── ViewModels/
-│   │   └── PhysicsEngine.swift       # Business logic with Combine
+│   │   ├── PhysicsEngine.swift       # Business logic with Combine
+│   │   └── AdminPanelViewModel.swift # Admin panel reactive controller
 │   ├── Views/
 │   │   ├── ContentView.swift         # Tab navigation
 │   │   ├── SimulationDeck.swift      # Grand Loop visualization
+│   │   ├── RouterControlView.swift   # Energy router control
 │   │   ├── LockerRoomView.swift      # Physical realm
 │   │   ├── LibraryView.swift         # Intellectual realm
-│   │   └── TheoremListView.swift     # Theorem history
+│   │   ├── TheoremListView.swift     # Theorem history
+│   │   └── AdminPanelView.swift      # Admin panel interface
 │   ├── Assets.xcassets/              # Images and colors
 │   └── Info.plist                    # App configuration
 ├── FaithQuestTests/
 │   ├── OmniTheoremTests.swift        # Model tests
-│   └── PhysicsEngineTests.swift      # ViewModel tests
+│   ├── PhysicsEngineTests.swift      # ViewModel tests
+│   ├── EnergyRouterTests.swift       # Router unit tests
+│   ├── AdminPanelTests.swift         # Admin panel unit tests
+│   ├── EnergyRouterPropertyTests.swift  # Router property tests
+│   ├── AdminPanelPropertyTests.swift    # Admin panel property tests
+│   ├── OmniTheoremPropertyTests.swift   # Theorem property tests
+│   └── PhysicsEnginePropertyTests.swift # Engine property tests
 └── FaithQuest.xcodeproj/             # Xcode project
 ```
 
