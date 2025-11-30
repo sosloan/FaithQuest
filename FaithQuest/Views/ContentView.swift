@@ -28,9 +28,6 @@ struct ContentView: View {
     init(engine: PhysicsEngine) {
         self._engine = ObservedObject(wrappedValue: engine)
         self._adminViewModel = StateObject(wrappedValue: AdminPanelViewModel(engine: engine))
-        
-        // Configure tab bar appearance for world-class design
-        configureTabBarAppearance()
     }
     
     var body: some View {
@@ -93,17 +90,6 @@ struct ContentView: View {
         } message: { message in
             Text(message)
         }
-    }
-    
-    /// Configure the tab bar appearance for a polished look
-    private func configureTabBarAppearance() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
-        
-        // Apply to all tab bar states
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
     }
 }
 

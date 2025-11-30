@@ -365,8 +365,9 @@ struct MainQuickActionsView: View {
             engine.autoBalanceEnergy()
         }
         
-        // Reset selection after animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        // Reset selection after animation using Task for proper lifecycle management
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
             selectedAction = nil
         }
     }
@@ -386,7 +387,9 @@ struct QuickActionButton: View {
             }
             onTap()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            // Reset press state using Task for proper lifecycle management
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
                 withAnimation {
                     isPressed = false
                 }

@@ -26,6 +26,12 @@ struct FaithQuestApp: App {
     /// Track if initial sync has completed
     @State private var hasPerformedInitialSync: Bool = false
     
+    init() {
+        // Configure tab bar appearance at app initialization
+        // This is the proper place for global UI appearance configuration
+        configureTabBarAppearance()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView(engine: engine)
@@ -40,6 +46,17 @@ struct FaithQuestApp: App {
     }
     
     // MARK: - Private Methods
+    
+    /// Configure global tab bar appearance for world-class design
+    private func configureTabBarAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
+        
+        // Apply to all tab bar states
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
     
     /// Perform initial app setup
     private func performInitialSetup() {
