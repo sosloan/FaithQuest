@@ -49,6 +49,14 @@ This application embraces:
 
 ## Key Features
 
+### 🌟 MainView (World-Class Entry Point)
+The world-class landing interface for FaithQuest:
+- **Immersive Visual Design**: Animated gradient backgrounds that respond to harmony
+- **Real-time Metrics Ring**: Triple-ring display showing all energy levels at a glance
+- **Quick Actions**: One-tap access to Train, Study, Connect, and Flow actions
+- **Daily Insights**: Shows latest theorem or motivational wisdom
+- **Elegant Animations**: Pulse effects, smooth transitions, and responsive feedback
+
 ### ⚡️ EnergyRouter (Erlang/OTP Inspired)
 A message-passing router that manages energy flows:
 - **Blowing**: Active push of energy (80% efficiency)
@@ -109,6 +117,7 @@ FaithQuest/
 │   ├── PhysicsEngine.swift        # The Proof - logic loop with Combine
 │   └── AdminPanelViewModel.swift  # Admin panel reactive controller
 ├── Views/
+│   ├── MainView.swift             # World-class landing interface (MAIN)
 │   ├── ContentView.swift          # Main tab navigation
 │   ├── SimulationDeck.swift       # Unified grand loop interface
 │   ├── RouterControlView.swift    # Energy router control panel
