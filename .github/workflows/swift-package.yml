@@ -10,6 +10,8 @@ jobs:
   build-macos:
     name: Build and Test (macOS)
     runs-on: macos-14
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout
@@ -27,6 +29,8 @@ jobs:
   build-linux:
     name: Build and Test (Linux)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout
