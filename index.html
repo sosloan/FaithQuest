@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaithQuest — Connecting the Locker Room to the Library</title>
+  <meta name="description" content="FaithQuest is the Unified Grand Loop — bridging physical excellence and intellectual pursuit for the next generation of Scholar-Athletes." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #141414;
+      --border:    #222222;
+      --orange:    #FF5A1F;
+      --orange-hi: #FF8C42;
+      --neon:      #00FF88;
+      --neon-dim:  #00C96A;
+      --white:     #FFFFFF;
+      --off-white: #E8E8E8;
+      --muted:     #888888;
+      --font-display: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Utility ───────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--neon);
+      border: 1px solid var(--neon-dim);
+      border-radius: 2px;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ─── Scroll-reveal ─────────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+    .reveal-delay-4 { transition-delay: 0.5s; }
+
+    /* ─── Nav ───────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em;
+      transition: background 0.25s !important;
+    }
+    .nav-cta:hover { background: var(--orange-hi) !important; color: var(--white) !important; }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+      overflow: hidden;
+      padding-top: 90px;
+    }
+
+    /* Animated gradient orbs */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .hero-orb-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(255,90,31,0.25), transparent 70%);
+      top: -200px; right: -200px;
+      animation-delay: 0s;
+    }
+    .hero-orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,255,136,0.15), transparent 70%);
+      bottom: -100px; left: -100px;
+      animation-delay: -8s;
+    }
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 60px) scale(1.08); }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+    .hero-headline .line-orange { color: var(--orange); }
+    .hero-headline .line-dim { color: var(--muted); }
+
+    .hero-body {
+      font-size: 1.1rem;
+      color: var(--off-white);
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0.85;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--orange);
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-hi); transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--off-white);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      transition: border-color 0.25s, color 0.25s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--white); transform: translateY(-2px); }
+
+    /* Dual realm visual */
+    .hero-visual {
+      position: relative;
+      height: 520px;
+    }
+    .realm-card {
+      position: absolute;
+      width: 58%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .realm-card-inner {
+      padding: 2rem;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .realm-card-locker {
+      background: linear-gradient(135deg, #1a0f00 0%, #2a1500 100%);
+      top: 0; right: 0;
+      transform: rotate(2deg);
+      box-shadow: 0 24px 80px rgba(255,90,31,0.2);
+    }
+    .realm-card-library {
+      background: linear-gradient(135deg, #001a10 0%, #002515 100%);
+      bottom: 0; left: 0;
+      transform: rotate(-2deg);
+      box-shadow: 0 24px 80px rgba(0,255,136,0.15);
+      z-index: 1;
+    }
+    .realm-label {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .realm-label-locker { color: var(--orange); }
+    .realm-label-library { color: var(--neon); }
+    .realm-icon { font-size: 3rem; }
+    .realm-stat {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .realm-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .realm-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      animation: pulse-bar 3s ease-in-out infinite alternate;
+    }
+    .realm-bar-fill-locker { background: var(--orange); width: 72%; }
+    .realm-bar-fill-library { background: var(--neon); width: 85%; }
+    @keyframes pulse-bar {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* Bridge connector */
+    .bridge-connector {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 60px;
+      height: 60px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      animation: spin-slow 12s linear infinite;
+      box-shadow: 0 0 30px rgba(255,90,31,0.3), 0 0 30px rgba(0,255,136,0.3);
+    }
+    @keyframes spin-slow {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Hero ticker */
+    .hero-ticker {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 3rem;
+      animation: ticker-scroll 30s linear infinite;
+    }
+    .ticker-item {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .ticker-item span { color: var(--orange); margin-right: 1.5rem; }
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── Manifesto ─────────────────────────────────────────────────────────── */
+    .manifesto {
+      padding: 10rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,90,31,0.04) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    .manifesto-quote {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .manifesto-quote em {
+      font-style: normal;
+      -webkit-text-stroke: 1.5px var(--orange);
+      color: transparent;
+    }
+    .manifesto-attribution {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2.5rem;
+    }
+
+    /* ─── Divide ─────────────────────────────────────────────────────────────── */
+    .divide {
+      padding: 6rem 0;
+    }
+    .divide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .divide-panel {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .divide-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+    }
+    .divide-panel-locker {
+      border-right: 1px solid var(--border);
+      background: #0f0800;
+    }
+    .divide-panel-locker::before {
+      background: var(--orange);
+    }
+    .divide-panel-library {
+      background: #00080f;
+    }
+    .divide-panel-library::before {
+      background: var(--neon);
+    }
+    .divide-num {
+      font-family: var(--font-display);
+      font-size: 9rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      opacity: 0.08;
+      position: absolute;
+      bottom: 1rem;
+      right: 2rem;
+    }
+    .divide-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    .divide-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .divide-title-orange { color: var(--orange); }
+    .divide-title-neon { color: var(--neon); }
+    .divide-body { font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 400px; }
+    .divide-metrics { display: flex; gap: 2rem; margin-top: 2.5rem; }
+    .divide-metric-val {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      letter-spacing: 0.04em;
+    }
+    .divide-metric-val-orange { color: var(--orange); }
+    .divide-metric-val-neon { color: var(--neon); }
+    .divide-metric-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ─── Features ──────────────────────────────────────────────────────────── */
+    .features {
+      padding: 8rem 0;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 360px;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .feature-card {
+      background: var(--surface);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .feature-card:hover { background: #1c1c1c; }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .feature-card:hover::after { transform: scaleX(1); }
+    .feature-card-neon::after { background: var(--neon); }
+
+    .feature-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .feature-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .feature-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-top: 1.25rem;
+    }
+    .badge-orange { background: rgba(255,90,31,0.15); color: var(--orange); }
+    .badge-neon   { background: rgba(0,255,136,0.1);  color: var(--neon); }
+    .badge-white  { background: rgba(255,255,255,0.08); color: var(--off-white); }
+
+    /* ─── Grand Loop ────────────────────────────────────────────────────────── */
+    .grand-loop {
+      padding: 8rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .grand-loop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .loop-diagram {
+      position: relative;
+      height: 460px;
+    }
+    .loop-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate-ring 20s linear infinite;
+    }
+    .loop-ring-1 { width: 380px; height: 380px; animation-duration: 20s; }
+    .loop-ring-2 { width: 280px; height: 280px; animation-duration: 14s; animation-direction: reverse; }
+    .loop-ring-3 { width: 180px; height: 180px; animation-duration: 8s; border-color: rgba(255,90,31,0.3); }
+    @keyframes rotate-ring {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .loop-node {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 1px solid var(--border);
+    }
+    .loop-node-center {
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px; height: 80px;
+      font-size: 2rem;
+      background: var(--bg);
+      box-shadow: 0 0 40px rgba(255,90,31,0.25), 0 0 40px rgba(0,255,136,0.15);
+      animation: none;
+      z-index: 3;
+    }
+    .loop-node-top    { top: 8%; left: 50%; transform: translateX(-50%); background: rgba(255,90,31,0.1); }
+    .loop-node-right  { top: 50%; right: 8%; transform: translateY(-50%); background: rgba(0,255,136,0.1); }
+    .loop-node-bottom { bottom: 8%; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.05); }
+    .loop-node-left   { top: 50%; left: 8%; transform: translateY(-50%); background: rgba(255,90,31,0.05); }
+
+    .grand-loop-content .tag { margin-bottom: 1rem; }
+    .grand-loop-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .grand-loop-body { font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .loop-steps { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+    .loop-step { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .loop-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,90,31,0.12);
+      border: 1px solid rgba(255,90,31,0.3);
+      color: var(--orange);
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .loop-step-text { font-size: 0.9rem; color: var(--off-white); line-height: 1.6; }
+    .loop-step-text strong { color: var(--white); }
+
+    /* ─── Stats ──────────────────────────────────────────────────────────────── */
+    .stats {
+      padding: 7rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .stat-block {
+      background: var(--bg);
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 4.5vw, 5rem);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .stat-num-orange { color: var(--orange); }
+    .stat-num-neon   { color: var(--neon); }
+    .stat-num-white  { color: var(--white); }
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ─── Philosophy ─────────────────────────────────────────────────────────── */
+    .philosophy {
+      padding: 8rem 0;
+      overflow: hidden;
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .philosophy-quotes { display: flex; flex-direction: column; gap: 2rem; }
+    .philosophy-quote-card {
+      border-left: 2px solid var(--orange);
+      padding: 1.5rem 1.75rem;
+      background: var(--surface);
+      border-radius: 0 4px 4px 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .philosophy-quote-card:nth-child(2) { border-color: var(--neon); margin-left: 2rem; }
+    .philosophy-quote-card:nth-child(3) { border-color: var(--muted); }
+    .philosophy-quote-card:hover { background: #1c1c1c; }
+    .philosophy-quote-text {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--off-white);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .philosophy-quote-author {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .philosophy-content .tag { margin-bottom: 1rem; }
+    .philosophy-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 4.5rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .philosophy-body { font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
+    .philosophy-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .pill:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* ─── Tech Stack ─────────────────────────────────────────────────────────── */
+    .tech {
+      padding: 6rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .tech-item {
+      background: var(--surface);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .tech-item:hover { background: #1e1e1e; }
+    .tech-item-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+    .tech-item-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .tech-item-desc { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+
+    /* ─── CTA ─────────────────────────────────────────────────────────────────── */
+    .cta-section {
+      padding: 10rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+    .cta-orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,90,31,0.2), transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .cta-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .cta-headline .outline {
+      -webkit-text-stroke: 1.5px var(--white);
+      color: transparent;
+    }
+    .cta-body {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: #444;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .divide-grid { grid-template-columns: 1fr; }
+      .divide-panel-locker { border-right: none; border-bottom: 1px solid var(--border); }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .grand-loop-grid { grid-template-columns: 1fr; }
+      .loop-diagram { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+      .divide-panel { padding: 2.5rem; }
+      .manifesto-quote { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">Faith<span>Quest</span></a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#grand-loop">Grand Loop</a></li>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="https://github.com/sosloan/FaithQuest" target="_blank" rel="noopener" class="nav-cta">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Copy -->
+        <div>
+          <p class="hero-eyebrow reveal">The Unified Grand Loop · Scholar-Athlete Platform</p>
+          <h1 class="hero-headline reveal reveal-delay-1">
+            Lock In.<br />
+            <span class="line-orange">Level Up.</span><br />
+            <span class="line-dim">Link.</span>
+          </h1>
+          <p class="hero-body reveal reveal-delay-2">
+            FaithQuest connects the Locker Room to the Library. Built for the next generation of Scholar-Athletes who refuse to choose between physical excellence and intellectual pursuit.
+          </p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="https://github.com/sosloan/FaithQuest" class="btn-primary" target="_blank" rel="noopener">
+              View on GitHub ↗
+            </a>
+            <a href="#grand-loop" class="btn-ghost">
+              Explore the Loop ↓
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="hero-visual reveal reveal-delay-2">
+          <div class="realm-card realm-card-locker">
+            <div class="realm-card-inner">
+              <div>
+                <div class="realm-icon">🏋️</div>
+                <div class="realm-label realm-label-locker">Locker Room</div>
+              </div>
+              <div>
+                <div class="realm-stat">Physical Energy</div>
+                <div class="realm-bar">
+                  <div class="realm-bar-fill realm-bar-fill-locker"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bridge-connector">⚡</div>
+
+          <div class="realm-card realm-card-library">
+            <div class="realm-card-inner">
+              <div>
+                <div class="realm-icon">📚</div>
+                <div class="realm-label realm-label-library">Library</div>
+              </div>
+              <div>
+                <div class="realm-stat">Intellectual Wisdom</div>
+                <div class="realm-bar">
+                  <div class="realm-bar-fill realm-bar-fill-library"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ticker -->
+    <div class="hero-ticker">
+      <div class="ticker-track" aria-hidden="true">
+        <span class="ticker-item"><span>⚡</span> Physical Energy</span>
+        <span class="ticker-item"><span>📚</span> Intellectual Wisdom</span>
+        <span class="ticker-item"><span>🔗</span> Bridge Strength</span>
+        <span class="ticker-item"><span>🔄</span> Unified Grand Loop</span>
+        <span class="ticker-item"><span>⚡</span> Energy Router</span>
+        <span class="ticker-item"><span>☁️</span> iCloud Sync</span>
+        <span class="ticker-item"><span>🎯</span> OmniTheorem</span>
+        <span class="ticker-item"><span>⚙️</span> PhysicsEngine</span>
+        <span class="ticker-item"><span>🏆</span> Scholar-Athletes</span>
+        <span class="ticker-item"><span>🧬</span> MonadRhythm</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="ticker-item"><span>⚡</span> Physical Energy</span>
+        <span class="ticker-item"><span>📚</span> Intellectual Wisdom</span>
+        <span class="ticker-item"><span>🔗</span> Bridge Strength</span>
+        <span class="ticker-item"><span>🔄</span> Unified Grand Loop</span>
+        <span class="ticker-item"><span>⚡</span> Energy Router</span>
+        <span class="ticker-item"><span>☁️</span> iCloud Sync</span>
+        <span class="ticker-item"><span>🎯</span> OmniTheorem</span>
+        <span class="ticker-item"><span>⚙️</span> PhysicsEngine</span>
+        <span class="ticker-item"><span>🏆</span> Scholar-Athletes</span>
+        <span class="ticker-item"><span>🧬</span> MonadRhythm</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Manifesto ─────────────────────────────────────────────────────────── -->
+  <section class="manifesto">
+    <div class="manifesto-bg"></div>
+    <div class="container">
+      <h2 class="manifesto-quote reveal">
+        This is not just an app —<br />
+        it is <em>the bridge</em><br />
+        between <em>two worlds.</em>
+      </h2>
+      <p class="manifesto-attribution reveal reveal-delay-1">The FaithQuest Manifesto</p>
+    </div>
+  </section>
+
+  <!-- ─── Divide ─────────────────────────────────────────────────────────────── -->
+  <section class="divide">
+    <div class="container">
+      <div class="divide-grid reveal">
+        <div class="divide-panel divide-panel-locker">
+          <div>
+            <div class="divide-icon">🏋️‍♂️</div>
+            <h2 class="divide-title divide-title-orange">Locker Room</h2>
+            <p class="divide-body">
+              Where champions are built. Track physical energy, record breakthroughs after every session, and push your athletic performance beyond limits. The locker room is where dedication becomes data.
+            </p>
+          </div>
+          <div class="divide-metrics">
+            <div>
+              <div class="divide-metric-val divide-metric-val-orange">80%</div>
+              <div class="divide-metric-label">Blow Efficiency</div>
+            </div>
+            <div>
+              <div class="divide-metric-val divide-metric-val-orange">∞</div>
+              <div class="divide-metric-label">Potential</div>
+            </div>
+          </div>
+          <div class="divide-num">01</div>
+        </div>
+
+        <div class="divide-panel divide-panel-library">
+          <div>
+            <div class="divide-icon">📖</div>
+            <h2 class="divide-title divide-title-neon">Library</h2>
+            <p class="divide-body">
+              Where scholars are forged. Document intellectual discoveries, grow wisdom across every discipline, and build the mental edge that separates good from great. Knowledge compounds over time.
+            </p>
+          </div>
+          <div class="divide-metrics">
+            <div>
+              <div class="divide-metric-val divide-metric-val-neon">90%</div>
+              <div class="divide-metric-label">Suction Efficiency</div>
+            </div>
+            <div>
+              <div class="divide-metric-val divide-metric-val-neon">3</div>
+              <div class="divide-metric-label">Theorem Types</div>
+            </div>
+          </div>
+          <div class="divide-num">02</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Features ─────────────────────────────────────────────────────────── -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="tag">Core Features</div>
+          <h2 class="section-title reveal">Built for<br />Champions</h2>
+        </div>
+        <p class="section-sub reveal reveal-delay-1">Every feature engineered to maximize the harmony between physical and intellectual growth.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">Energy Router</h3>
+          <p class="feature-body">Erlang/OTP-inspired message-passing system that routes energy between realms. Use Blowing (80% efficiency) or Suction (90%) to balance your physical and intellectual reserves.</p>
+          <span class="feature-badge badge-orange">Erlang-Inspired</span>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">🔄</span>
+          <h3 class="feature-title">Unified Grand Loop</h3>
+          <p class="feature-body">A continuous physics simulation that transfers energy between realms, calculates system harmony, and strengthens your bridge with every insight you record.</p>
+          <span class="feature-badge badge-neon">Always Running</span>
+        </div>
+
+        <div class="feature-card feature-card-neon reveal reveal-delay-2">
+          <span class="feature-icon">🎯</span>
+          <h3 class="feature-title">OmniTheorem</h3>
+          <p class="feature-body">Immutable insight records — capture breakthroughs from the Locker Room, discoveries from the Library, and connections across both realms. Your personal knowledge graph.</p>
+          <span class="feature-badge badge-neon">CloudKit Synced</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <span class="feature-icon">⚙️</span>
+          <h3 class="feature-title">Physics Engine</h3>
+          <p class="feature-body">Logic loop orchestration using reactive Combine streams. Immutable state transformations computed in real-time, with live harmony metrics across the entire system.</p>
+          <span class="feature-badge badge-orange">Combine + SwiftUI</span>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">☁️</span>
+          <h3 class="feature-title">iCloud Sync</h3>
+          <p class="feature-body">Your progress follows you everywhere. CloudKit private database integration ensures your theorems and energy states sync seamlessly across all your Apple devices.</p>
+          <span class="feature-badge badge-white">Multi-Device</span>
+        </div>
+
+        <div class="feature-card feature-card-neon reveal reveal-delay-2">
+          <span class="feature-icon">🛠</span>
+          <h3 class="feature-title">Admin Panel</h3>
+          <p class="feature-body">Protocol-oriented admin interface with full test coverage, command history, real-time metrics, and destructive action confirmation. Engineer-grade control over your system.</p>
+          <span class="feature-badge badge-neon">Property-Tested</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Grand Loop ────────────────────────────────────────────────────────── -->
+  <section class="grand-loop" id="grand-loop">
+    <div class="container">
+      <div class="grand-loop-grid">
+        <!-- Diagram -->
+        <div class="loop-diagram reveal">
+          <div class="loop-ring loop-ring-1"></div>
+          <div class="loop-ring loop-ring-2"></div>
+          <div class="loop-ring loop-ring-3"></div>
+          <div class="loop-node loop-node-center">🔄</div>
+          <div class="loop-node loop-node-top">🏋️</div>
+          <div class="loop-node loop-node-right">⚡</div>
+          <div class="loop-node loop-node-bottom">📚</div>
+          <div class="loop-node loop-node-left">🔗</div>
+        </div>
+
+        <!-- Content -->
+        <div class="grand-loop-content reveal reveal-delay-1">
+          <div class="tag">The Grand Loop</div>
+          <h2 class="grand-loop-title">One Continuous<br />Cycle of Growth</h2>
+          <p class="grand-loop-body">
+            The Unified Grand Loop is the core engine of FaithQuest. It's a living system that continuously transfers energy, builds bridges, and strengthens harmony between your two most powerful assets: your body and your mind.
+          </p>
+          <ul class="loop-steps">
+            <li class="loop-step">
+              <div class="loop-step-num">1</div>
+              <div class="loop-step-text"><strong>Train in the Locker Room.</strong> Every rep, every session builds physical energy that feeds the system.</div>
+            </li>
+            <li class="loop-step">
+              <div class="loop-step-num">2</div>
+              <div class="loop-step-text"><strong>Route energy intelligently.</strong> Use Blowing or Suction to balance your physical and intellectual resources.</div>
+            </li>
+            <li class="loop-step">
+              <div class="loop-step-num">3</div>
+              <div class="loop-step-text"><strong>Study in the Library.</strong> Convert energy into wisdom. Document every discovery as an OmniTheorem.</div>
+            </li>
+            <li class="loop-step">
+              <div class="loop-step-num">4</div>
+              <div class="loop-step-text"><strong>Strengthen the Bridge.</strong> Harmony compounds — the more you connect both realms, the stronger the whole system becomes.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Stats ─────────────────────────────────────────────────────────────── -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-block reveal">
+          <div class="stat-num stat-num-orange" data-target="100">0</div>
+          <div class="stat-label">System Harmony %</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-1">
+          <div class="stat-num stat-num-neon" data-target="3">0</div>
+          <div class="stat-label">Theorem Categories</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-2">
+          <div class="stat-num stat-num-white" data-target="90">0</div>
+          <div class="stat-label">Suction Efficiency %</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-3">
+          <div class="stat-num stat-num-orange" data-target="5">0</div>
+          <div class="stat-label">Core Architectures</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Philosophy ─────────────────────────────────────────────────────────── -->
+  <section class="philosophy" id="philosophy">
+    <div class="container">
+      <div class="philosophy-grid">
+        <div class="philosophy-quotes">
+          <div class="philosophy-quote-card reveal">
+            <p class="philosophy-quote-text">"In functional programming, we don't change the world — we describe new worlds."</p>
+            <p class="philosophy-quote-author">Core Philosophy</p>
+          </div>
+          <div class="philosophy-quote-card reveal reveal-delay-1">
+            <p class="philosophy-quote-text">"Logic is the anatomy. Lean is the scalpel."</p>
+            <p class="philosophy-quote-author">FaithQuest Principles</p>
+          </div>
+          <div class="philosophy-quote-card reveal reveal-delay-2">
+            <p class="philosophy-quote-text">"In π's infinite digits, primes hide like gems. The polymath finds them where specialists see only chaos."</p>
+            <p class="philosophy-quote-author">On Behavioral Coverage</p>
+          </div>
+        </div>
+
+        <div class="philosophy-content reveal reveal-delay-1">
+          <div class="tag">Philosophy</div>
+          <h2 class="philosophy-title">Principles that<br />Drive Us</h2>
+          <p class="philosophy-body">
+            FaithQuest is more than an app — it is a philosophy encoded in software. We believe that physical excellence and intellectual pursuit are not separate paths, but two forces in the same unified system.
+          </p>
+          <p class="philosophy-body">
+            Every architectural decision, from immutable state to reactive streams, mirrors the principles of the Scholar-Athlete mindset: discipline, precision, and continuous improvement.
+          </p>
+          <div class="philosophy-pills">
+            <span class="pill">Immutability</span>
+            <span class="pill">Pure Functions</span>
+            <span class="pill">Reactive Streams</span>
+            <span class="pill">Declarative UI</span>
+            <span class="pill">Protocol-Oriented</span>
+            <span class="pill">Functional First</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Tech Stack ─────────────────────────────────────────────────────────── -->
+  <section class="tech">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="tag">Built With</div>
+          <h2 class="section-title reveal">Apple Ecosystem<br />as the Scalpel</h2>
+        </div>
+        <p class="section-sub reveal reveal-delay-1">Engineering-grade tools chosen with precision. Every dependency earns its place.</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item reveal">
+          <span class="tech-item-icon">🦅</span>
+          <div class="tech-item-name">Swift 5.9+</div>
+          <div class="tech-item-desc">Primary Language</div>
+        </div>
+        <div class="tech-item reveal reveal-delay-1">
+          <span class="tech-item-icon">🖼</span>
+          <div class="tech-item-name">SwiftUI</div>
+          <div class="tech-item-desc">Declarative UI</div>
+        </div>
+        <div class="tech-item reveal reveal-delay-2">
+          <span class="tech-item-icon">🔗</span>
+          <div class="tech-item-name">Combine</div>
+          <div class="tech-item-desc">Reactive Streams</div>
+        </div>
+        <div class="tech-item reveal reveal-delay-3">
+          <span class="tech-item-icon">☁️</span>
+          <div class="tech-item-name">CloudKit</div>
+          <div class="tech-item-desc">iCloud Sync</div>
+        </div>
+        <div class="tech-item reveal reveal-delay-4">
+          <span class="tech-item-icon">✅</span>
+          <div class="tech-item-name">SwiftCheck</div>
+          <div class="tech-item-desc">Property Testing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─────────────────────────────────────────────────────────────────── -->
+  <section class="cta-section">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="container">
+      <span class="cta-label reveal">Are you ready?</span>
+      <h2 class="cta-headline reveal reveal-delay-1">
+        Start<br />
+        <span class="outline">Your Quest</span>
+      </h2>
+      <p class="cta-body reveal reveal-delay-2">
+        The locker room and the library are waiting. Build your bridge. Strengthen your loop. Become the Scholar-Athlete you were built to be.
+      </p>
+      <div class="cta-buttons reveal reveal-delay-3">
+        <a href="https://github.com/sosloan/FaithQuest" class="btn-primary" target="_blank" rel="noopener">
+          View Source on GitHub ↗
+        </a>
+        <a href="https://github.com/sosloan/FaithQuest/blob/main/README.md" class="btn-ghost" target="_blank" rel="noopener">
+          Read the Docs ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─────────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Faith<span>Quest</span></div>
+        <ul class="footer-links">
+          <li><a href="https://github.com/sosloan/FaithQuest" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/sosloan/FaithQuest/blob/main/README.md" target="_blank" rel="noopener">Docs</a></li>
+          <li><a href="https://github.com/sosloan/FaithQuest/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
+          <li><a href="https://github.com/sosloan/FaithQuest/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a></li>
+        </ul>
+        <p class="footer-copy">© 2024 FaithQuest · The Unified Grand Loop</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ─────────────────────────────────────────────────────────────────── -->
+  <script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+    revealEls.forEach(el => observer.observe(el));
+
+    // Animated counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 1600;
+      const start = performance.now();
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(step);
+    }
+
+    const statObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCounter(e.target);
+            statObserver.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('[data-target]').forEach(el => statObserver.observe(el));
+  </script>
+</body>
+</html>
