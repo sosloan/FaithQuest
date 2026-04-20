@@ -1,0 +1,101 @@
+name: Release Swift Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  test:
+    name: Test Package
+    runs-on: macos-14
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Swift
+      uses: swift-actions/setup-swift@v2
+      with:
+        swift-version: '5.9'
+        
+    - name: Build Package
+      run: swift build
+      
+    - name: Run Tests
+      run: swift test
+
+  release:
+    name: Create Release
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Determine Version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        else
+          VERSION="${{ github.ref_name }}"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION"
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.version }}
+        name: FaithQuestCore ${{ steps.version.outputs.version }}
+        body: |
+          ## FaithQuestCore ${{ steps.version.outputs.version }}
+          
+          ### Installation
+          
+          Add FaithQuestCore to your Swift package:
+          
+          ```swift
+          dependencies: [
+              .package(url: "https://github.com/${{ github.repository }}.git", from: "${{ steps.version.outputs.version }}")
+          ]
+          ```
+          
+          Then add it to your target:
+          
+          ```swift
+          .target(
+              name: "YourTarget",
+              dependencies: ["FaithQuestCore"]
+          )
+          ```
+          
+          ### What's Included
+          
+          - **OmniTheorem**: Immutable data model for representing truths
+          - **UnifiedState**: State management for the Unified Grand Loop
+          - **EnergyRouter**: Erlang/OTP-inspired router for energy flow management
+          - **AdminPanel**: Protocol-oriented admin controls for system management
+          
+          ### Platform Support
+          
+          - iOS 16+
+          - macOS 13+
+          - tvOS 16+
+          - watchOS 9+
+          - visionOS 1+
+        draft: false
+        prerelease: false
+        generate_release_notes: true

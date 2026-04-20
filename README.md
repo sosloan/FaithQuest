@@ -101,23 +101,30 @@ Record insights from any realm:
 
 ```
 FaithQuest/
-├── Models/
-│   ├── OmniTheorem.swift          # The Truth - immutable data models
-│   ├── EnergyRouter.swift         # Erlang/OTP-inspired router with Blowing/Suction
-│   └── AdminPanel.swift           # Protocol-oriented admin panel model
-├── ViewModels/
-│   ├── PhysicsEngine.swift        # The Proof - logic loop with Combine
-│   └── AdminPanelViewModel.swift  # Admin panel reactive controller
-├── Views/
-│   ├── ContentView.swift          # Main tab navigation
-│   ├── SimulationDeck.swift       # Unified grand loop interface
-│   ├── RouterControlView.swift    # Energy router control panel
-│   ├── LockerRoomView.swift       # Physical realm interface
-│   ├── LibraryView.swift          # Intellectual realm interface
-│   ├── TheoremListView.swift      # Historical theorem display
-│   └── AdminPanelView.swift       # Admin panel interface
-└── App/
-    └── FaithQuestApp.swift        # App entry point
+├── Sources/FaithQuestCore/         # Swift Package - Platform-independent core library
+│   ├── OmniTheorem.swift           # The Truth - immutable data models
+│   ├── EnergyRouter.swift          # Erlang/OTP-inspired router with Blowing/Suction
+│   └── AdminPanel.swift            # Protocol-oriented admin panel model
+├── Tests/FaithQuestCoreTests/      # Tests for the core library
+│   ├── OmniTheoremTests.swift
+│   ├── EnergyRouterTests.swift
+│   └── AdminPanelTests.swift
+├── FaithQuest/                     # iOS/macOS App
+│   ├── Models/                     # App-specific models with CloudKit/SwiftUI
+│   ├── ViewModels/
+│   │   ├── PhysicsEngine.swift     # The Proof - logic loop with Combine
+│   │   └── AdminPanelViewModel.swift
+│   ├── Views/
+│   │   ├── ContentView.swift       # Main tab navigation
+│   │   ├── SimulationDeck.swift    # Unified grand loop interface
+│   │   ├── RouterControlView.swift # Energy router control panel
+│   │   ├── LockerRoomView.swift    # Physical realm interface
+│   │   ├── LibraryView.swift       # Intellectual realm interface
+│   │   ├── TheoremListView.swift   # Historical theorem display
+│   │   └── AdminPanelView.swift    # Admin panel interface
+│   └── App/
+│       └── FaithQuestApp.swift     # App entry point
+└── Package.swift                   # Swift Package Manager manifest
 ```
 
 ## Getting Started
@@ -145,6 +152,35 @@ FaithQuest/
    - Press ⌘R to build and run
 
 ### Using Swift Package Manager
+
+The core library is available as a Swift Package for use in your own projects.
+
+#### Adding FaithQuestCore as a Dependency
+
+Add the package to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/sosloan/FaithQuest.git", from: "1.0.0")
+]
+```
+
+Then add it to your target dependencies:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: ["FaithQuestCore"]
+)
+```
+
+Or in Xcode:
+1. Go to File > Add Packages...
+2. Enter the repository URL: `https://github.com/sosloan/FaithQuest.git`
+3. Select the version you want to use
+4. Add `FaithQuestCore` to your target
+
+#### Building the Package Locally
 
 ```bash
 swift build

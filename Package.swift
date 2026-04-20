@@ -4,33 +4,40 @@
 import PackageDescription
 
 let package = Package(
-    name: "FaithQuest",
+    name: "FaithQuestCore",
     platforms: [
         .iOS(.v16),
-        .macOS(.v13)
+        .macOS(.v13),
+        .tvOS(.v16),
+        .watchOS(.v9),
+        .visionOS(.v1)
     ],
     products: [
+        // FaithQuestCore: Platform-independent core library
+        // Contains the fundamental models and logic for the Unified Grand Loop
         .library(
-            name: "FaithQuest",
-            targets: ["FaithQuest"]),
+            name: "FaithQuestCore",
+            targets: ["FaithQuestCore"]),
     ],
     dependencies: [
         // Property-based testing library (QuickCheck-style for Swift)
         .package(url: "https://github.com/typelift/SwiftCheck.git", from: "0.12.0")
     ],
     targets: [
+        // Core library target - platform-independent models and logic
         .target(
-            name: "FaithQuest",
+            name: "FaithQuestCore",
             dependencies: [],
-            path: "FaithQuest"
+            path: "Sources/FaithQuestCore"
         ),
+        // Test target for the core library
         .testTarget(
-            name: "FaithQuestTests",
+            name: "FaithQuestCoreTests",
             dependencies: [
-                "FaithQuest",
+                "FaithQuestCore",
                 .product(name: "SwiftCheck", package: "SwiftCheck")
             ],
-            path: "FaithQuestTests"
+            path: "Tests/FaithQuestCoreTests"
         ),
     ]
 )
