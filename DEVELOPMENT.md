@@ -32,7 +32,15 @@ Or double-click `FaithQuest.xcodeproj` in Finder.
 4. Select your **Team** from the dropdown
 5. Xcode will automatically configure signing
 
-### 4. Enable iCloud
+### 4. Enable HealthKit
+
+The Locker Room reads Apple Health. The target already includes `FaithQuest/FaithQuest.entitlements` and `NSHealthShareUsageDescription`. When signing with a team:
+
+1. In **Signing & Capabilities**, click **+ Capability**
+2. Add **HealthKit**
+3. Leave clinical records and background delivery off — FaithQuest only reads the seven Locker Room types
+
+### 5. Enable iCloud
 
 The app requires iCloud capability for cross-device sync:
 
@@ -41,7 +49,7 @@ The app requires iCloud capability for cross-device sync:
 3. Enable **CloudKit**
 4. Xcode will create a default CloudKit container
 
-### 5. Build and Run
+### 6. Build and Run
 
 - **Simulator**: Select any iOS 16.0+ simulator and press ⌘R
 - **Device**: Connect your iPhone/iPad and select it, then press ⌘R
@@ -56,7 +64,9 @@ FaithQuest/
 │   ├── Models/
 │   │   ├── OmniTheorem.swift         # Data models & CloudKit sync
 │   │   ├── EnergyRouter.swift        # Erlang/OTP-inspired router
-│   │   └── AdminPanel.swift          # Protocol-oriented admin model
+│   │   ├── AdminPanel.swift          # Protocol-oriented admin model
+│   │   ├── HealthMetrics.swift       # Apple Health readings
+│   │   └── HealthKitBridge.swift     # Read-only HealthKit source
 │   ├── ViewModels/
 │   │   ├── PhysicsEngine.swift       # Business logic with Combine
 │   │   └── AdminPanelViewModel.swift # Admin panel reactive controller
@@ -73,6 +83,7 @@ FaithQuest/
 ├── FaithQuestTests/
 │   ├── OmniTheoremTests.swift        # Model tests
 │   ├── PhysicsEngineTests.swift      # ViewModel tests
+│   ├── HealthMetricsTests.swift      # Apple Health metric tests
 │   ├── EnergyRouterTests.swift       # Router unit tests
 │   ├── AdminPanelTests.swift         # Admin panel unit tests
 │   ├── EnergyRouterPropertyTests.swift  # Router property tests

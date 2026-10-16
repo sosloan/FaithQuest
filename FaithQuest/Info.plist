@@ -36,6 +36,8 @@
 		<key>UIImageName</key>
 		<string></string>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>FaithQuest reads step count, active energy, exercise time, heart rate, resting heart rate, body mass, and sleep from Apple Health to show them in the Locker Room and set a physical energy floor. Readings stay on this device and are not written back to Apple Health.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
