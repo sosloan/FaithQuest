@@ -104,7 +104,9 @@ FaithQuest/
 ├── Models/
 │   ├── OmniTheorem.swift          # The Truth - immutable data models
 │   ├── EnergyRouter.swift         # Erlang/OTP-inspired router with Blowing/Suction
-│   └── AdminPanel.swift           # Protocol-oriented admin panel model
+│   ├── AdminPanel.swift           # Protocol-oriented admin panel model
+│   ├── RealEstateInvesting.swift  # Cap-rate and direct-property investing math
+│   └── REITDerivatives.swift      # REIT multiples, swaps, options, and strips
 ├── ViewModels/
 │   ├── PhysicsEngine.swift        # The Proof - logic loop with Combine
 │   └── AdminPanelViewModel.swift  # Admin panel reactive controller

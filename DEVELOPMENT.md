@@ -56,7 +56,9 @@ FaithQuest/
 │   ├── Models/
 │   │   ├── OmniTheorem.swift         # Data models & CloudKit sync
 │   │   ├── EnergyRouter.swift        # Erlang/OTP-inspired router
-│   │   └── AdminPanel.swift          # Protocol-oriented admin model
+│   │   ├── AdminPanel.swift          # Protocol-oriented admin model
+│   │   ├── RealEstateInvesting.swift # Cap-rate and direct-property investing math
+│   │   └── REITDerivatives.swift     # REIT multiples, swaps, options, and strips
 │   ├── ViewModels/
 │   │   ├── PhysicsEngine.swift       # Business logic with Combine
 │   │   └── AdminPanelViewModel.swift # Admin panel reactive controller
@@ -78,7 +80,12 @@ FaithQuest/
 │   ├── EnergyRouterPropertyTests.swift  # Router property tests
 │   ├── AdminPanelPropertyTests.swift    # Admin panel property tests
 │   ├── OmniTheoremPropertyTests.swift   # Theorem property tests
-│   └── PhysicsEnginePropertyTests.swift # Engine property tests
+│   ├── PhysicsEnginePropertyTests.swift # Engine property tests
+│   ├── RealEstateCapRateTests.swift     # Cap-rate and investing unit tests
+│   ├── RealEstateInvestingPropertyTests.swift # Investing property tests
+│   ├── REITDerivativeTests.swift        # REIT derivative unit tests
+│   ├── REITDerivativePropertyTests.swift # REIT derivative property tests
+│   └── InvestingAssertions.swift        # Optional floating-point assertions
 └── FaithQuest.xcodeproj/             # Xcode project
 ```
 

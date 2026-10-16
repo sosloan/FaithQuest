@@ -108,6 +108,38 @@ Tests physics engine state transitions and higher-order properties:
 - **Default balance**: Default initialized engine has balanced state (0.5, 0.5, 0.5)
 - **Custom preservation**: Custom initial state is preserved
 
+### 4. RealEstateInvestingPropertyTests.swift
+
+Tests cap-rate mathematics and direct-property investing:
+
+- **Capitalization inverse**: `value * cap rate = NOI`, and the recovered cap rate matches
+- **Monotonicity**: Value falls as the cap rate rises and rises as NOI rises
+- **Compression identity**: `(V2 - V1) / V1 = startCap / endCap - 1`
+- **Sensitivity**: Analytic `dV/dCap = -NOI / cap^2` matches a central difference
+- **NOI build-up**: NOI excludes debt service and follows the vacancy identity
+- **Portfolio cap rate**: Aggregate NOI / aggregate value, not an unweighted mean
+- **Leverage identities**: LTV, cash-on-cash, DSCR, and unlevered cash-on-cash = cap rate
+- **Amortization**: Opening balance is principal, maturity balance is zero, zero-rate loans decline linearly
+- **Sale proceeds**: Capitalized NOI after selling costs and the remaining loan
+- **IRR**: A one-period IRR equals the terminal growth rate and has zero NPV
+
+### 5. REITDerivativePropertyTests.swift
+
+Tests REIT multiples and derivative payoffs:
+
+- **FFO**: Adds real-estate depreciation and losses, subtracts gains
+- **Implied cap rate**: Portfolio NOI / enterprise value
+- **NAV premium**: Zero when price equals NAV per share
+- **Cap-rate swap**: Settlement is linear in notional and odd in the cap-rate spread
+- **Total-return swap**: Payoff is zero when asset return equals funding accrual
+- **Capital return**: Unchanged NOI makes capital return equal cap-rate compression
+- **Put-call parity**: `call - put = S e^{-qT} - K e^{-rT}` for dividend-paying REIT options
+- **Bounds and delta**: Prices stay above discounted forward intrinsic value; call delta is in `(0, e^{-qT}]`
+- **Dividend yield**: A higher REIT yield lowers the European call
+- **IO/PO strips**: Interest plus principal present value equals the mortgage, and a par coupon prices at par
+- **Interest-rate swap**: Forward-rate value matches the annuity closed form; par rate has zero value
+- **Gordon growth**: Price, implied return, and perpetuity duration round-trip
+
 ## Mathematical Foundations
 
 ### Lyapunov Stability

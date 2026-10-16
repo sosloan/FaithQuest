@@ -17,6 +17,11 @@
 		FA00000F /* TheoremListView.swift */ = {isa = PBXBuildFile; fileRef = FA00000E /* TheoremListView.swift */; };
 		FA000011 /* OmniTheoremTests.swift */ = {isa = PBXBuildFile; fileRef = FA000010 /* OmniTheoremTests.swift */; };
 		FA000013 /* PhysicsEngineTests.swift */ = {isa = PBXBuildFile; fileRef = FA000012 /* PhysicsEngineTests.swift */; };
+		FA000015 /* RealEstateInvesting.swift */ = {isa = PBXBuildFile; fileRef = FA000014 /* RealEstateInvesting.swift */; };
+		FA000017 /* REITDerivatives.swift */ = {isa = PBXBuildFile; fileRef = FA000016 /* REITDerivatives.swift */; };
+		FA000019 /* RealEstateCapRateTests.swift */ = {isa = PBXBuildFile; fileRef = FA000018 /* RealEstateCapRateTests.swift */; };
+		FA00001B /* REITDerivativeTests.swift */ = {isa = PBXBuildFile; fileRef = FA00001A /* REITDerivativeTests.swift */; };
+		FA00001E /* InvestingAssertions.swift */ = {isa = PBXBuildFile; fileRef = FA00001D /* InvestingAssertions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +35,12 @@
 		FA00000E /* TheoremListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheoremListView.swift; sourceTree = "<group>"; };
 		FA000010 /* OmniTheoremTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniTheoremTests.swift; sourceTree = "<group>"; };
 		FA000012 /* PhysicsEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsEngineTests.swift; sourceTree = "<group>"; };
-		FA000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA000014 /* RealEstateInvesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateInvesting.swift; sourceTree = "<group>"; };
+		FA000016 /* REITDerivatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REITDerivatives.swift; sourceTree = "<group>"; };
+		FA000018 /* RealEstateCapRateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateCapRateTests.swift; sourceTree = "<group>"; };
+		FA00001A /* REITDerivativeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REITDerivativeTests.swift; sourceTree = "<group>"; };
+		FA00001D /* InvestingAssertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestingAssertions.swift; sourceTree = "<group>"; };
+		FA00001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAAPP001 /* FaithQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaithQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FATEST01 /* FaithQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaithQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -69,7 +79,7 @@
 				FAGRPMOD /* Models */,
 				FAGRPVM /* ViewModels */,
 				FAGRPVW /* Views */,
-				FA000014 /* Info.plist */,
+				FA00001C /* Info.plist */,
 			);
 			path = FaithQuest;
 			sourceTree = "<group>";
@@ -86,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				FA000004 /* OmniTheorem.swift */,
+				FA000014 /* RealEstateInvesting.swift */,
+				FA000016 /* REITDerivatives.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +127,9 @@
 			children = (
 				FA000010 /* OmniTheoremTests.swift */,
 				FA000012 /* PhysicsEngineTests.swift */,
+				FA000018 /* RealEstateCapRateTests.swift */,
+				FA00001A /* REITDerivativeTests.swift */,
+				FA00001D /* InvestingAssertions.swift */,
 			);
 			path = FaithQuestTests;
 			sourceTree = "<group>";
@@ -220,6 +235,8 @@
 				FA000001 /* FaithQuestApp.swift */,
 				FA000003 /* ContentView.swift */,
 				FA000005 /* OmniTheorem.swift */,
+				FA000015 /* RealEstateInvesting.swift */,
+				FA000017 /* REITDerivatives.swift */,
 				FA000007 /* PhysicsEngine.swift */,
 				FA000009 /* LockerRoomView.swift */,
 				FA00000B /* LibraryView.swift */,
@@ -234,6 +251,9 @@
 			files = (
 				FA000011 /* OmniTheoremTests.swift */,
 				FA000013 /* PhysicsEngineTests.swift */,
+				FA000019 /* RealEstateCapRateTests.swift */,
+				FA00001B /* REITDerivativeTests.swift */,
+				FA00001E /* InvestingAssertions.swift */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
