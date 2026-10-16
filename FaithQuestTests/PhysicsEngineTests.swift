@@ -217,4 +217,122 @@ final class PhysicsEngineTests: XCTestCase {
         // Then - Suction should transfer more energy
         XCTAssertGreaterThan(engine2.state.libraryWisdom, engine1.state.libraryWisdom)
     }
+    
+    func testApplyHealthSnapshotRaisesEnergyWithoutTouchingOtherRealms() {
+        engine.pauseLogicLoop()
+        let theorem = OmniTheorem(content: "Keep the bridge", category: .bridge)
+        engine = PhysicsEngine(initialState: UnifiedState(
+            theorems: [theorem],
+            lockerRoomEnergy: 0.2,
+            libraryWisdom: 0.4,
+            bridgeStrength: 0.7
+        ))
+        engine.pauseLogicLoop()
+        
+        engine.applyHealthSnapshot(HealthSnapshot.assembling(
+            values: [
+                .activeEnergyBurned: 500,
+                .appleExerciseTime: 30,
+                .stepCount: 10_000,
+                .sleepAnalysis: 8
+            ],
+            access: .authorized,
+            capturedAt: Date()
+        ))
+        
+        XCTAssertEqual(engine.state.lockerRoomEnergy, 1.0, accuracy: 0.0001)
+        XCTAssertEqual(engine.state.libraryWisdom, 0.4, accuracy: 0.0001)
+        XCTAssertEqual(engine.state.bridgeStrength, 0.7, accuracy: 0.0001)
+        XCTAssertEqual(engine.state.theorems.count, 1)
+        
+        let energy = engine.state.lockerRoomEnergy
+        engine.applyHealthSnapshot(engine.healthSnapshot)
+        XCTAssertEqual(engine.state.lockerRoomEnergy, energy, accuracy: 0.0001)
+    }
+    
+    func testApplyHealthSnapshotDoesNotLowerEnergy() {
+        engine.pauseLogicLoop()
+        engine = PhysicsEngine(initialState: UnifiedState(
+            theorems: [],
+            lockerRoomEnergy: 0.9,
+            libraryWisdom: 0.3,
+            bridgeStrength: 0.4
+        ))
+        engine.pauseLogicLoop()
+        
+        engine.applyHealthSnapshot(HealthSnapshot.assembling(
+            values: [.stepCount: 0, .sleepAnalysis: 0],
+            access: .authorized,
+            capturedAt: Date()
+        ))
+        
+        XCTAssertEqual(engine.state.lockerRoomEnergy, 0.9, accuracy: 0.0001)
+        XCTAssertEqual(engine.state.libraryWisdom, 0.3, accuracy: 0.0001)
+    }
+    
+    func testRefreshHealthAppliesInjectedSnapshot() async {
+        let snapshot = HealthSnapshot.assembling(
+            values: [.stepCount: 10_000],
+            access: .authorized,
+            capturedAt: Date(timeIntervalSince1970: 10)
+        )
+        let localEngine = PhysicsEngine(
+            initialState: UnifiedState(
+                theorems: [],
+                lockerRoomEnergy: 0.1,
+                libraryWisdom: 0.2,
+                bridgeStrength: 0.3
+            ),
+            healthSource: StubHealthSource(snapshot: snapshot)
+        )
+        localEngine.pauseLogicLoop()
+        
+        await localEngine.refreshHealth()
+        
+        XCTAssertEqual(localEngine.healthSnapshot, snapshot)
+        XCTAssertEqual(localEngine.state.lockerRoomEnergy, 1.0, accuracy: 0.0001)
+        XCTAssertEqual(localEngine.state.libraryWisdom, 0.2, accuracy: 0.0001)
+        XCTAssertEqual(localEngine.state.bridgeStrength, 0.3, accuracy: 0.0001)
+        XCTAssertFalse(localEngine.isSyncingHealth)
+        XCTAssertNil(localEngine.healthStatusMessage)
+    }
+    
+    func testRefreshHealthFailureDoesNotChangeEnergy() async {
+        let localEngine = PhysicsEngine(
+            initialState: UnifiedState(
+                theorems: [],
+                lockerRoomEnergy: 0.55,
+                libraryWisdom: 0.25,
+                bridgeStrength: 0.35
+            ),
+            healthSource: StubHealthSource(snapshot: .notDetermined, error: StubHealthError.failed)
+        )
+        localEngine.pauseLogicLoop()
+        
+        await localEngine.refreshHealth()
+        
+        XCTAssertEqual(localEngine.state.lockerRoomEnergy, 0.55, accuracy: 0.0001)
+        XCTAssertEqual(localEngine.healthStatusMessage, "Could not read Apple Health.")
+        XCTAssertFalse(localEngine.isSyncingHealth)
+        XCTAssertEqual(localEngine.healthSnapshot.access, .notDetermined)
+    }
+}
+
+private struct StubHealthSource: HealthMetricSource {
+    var snapshot: HealthSnapshot
+    var error: Error?
+    
+    func requestAuthorization() async throws {
+        if let error {
+            throw error
+        }
+    }
+    
+    func fetchSnapshot(now: Date) async -> HealthSnapshot {
+        snapshot
+    }
+}
+
+private enum StubHealthError: Error {
+    case failed
 }

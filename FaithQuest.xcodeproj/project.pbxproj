@@ -17,6 +17,10 @@
 		FA00000F /* TheoremListView.swift */ = {isa = PBXBuildFile; fileRef = FA00000E /* TheoremListView.swift */; };
 		FA000011 /* OmniTheoremTests.swift */ = {isa = PBXBuildFile; fileRef = FA000010 /* OmniTheoremTests.swift */; };
 		FA000013 /* PhysicsEngineTests.swift */ = {isa = PBXBuildFile; fileRef = FA000012 /* PhysicsEngineTests.swift */; };
+		FA000016 /* HealthMetrics.swift */ = {isa = PBXBuildFile; fileRef = FA000015 /* HealthMetrics.swift */; };
+		FA000018 /* HealthKitBridge.swift */ = {isa = PBXBuildFile; fileRef = FA000017 /* HealthKitBridge.swift */; };
+		FA00001A /* HealthMetricsTests.swift */ = {isa = PBXBuildFile; fileRef = FA000019 /* HealthMetricsTests.swift */; };
+		FA00001D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA00001C /* HealthKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,11 @@
 		FA000010 /* OmniTheoremTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniTheoremTests.swift; sourceTree = "<group>"; };
 		FA000012 /* PhysicsEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsEngineTests.swift; sourceTree = "<group>"; };
 		FA000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA000015 /* HealthMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetrics.swift; sourceTree = "<group>"; };
+		FA000017 /* HealthKitBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitBridge.swift; sourceTree = "<group>"; };
+		FA000019 /* HealthMetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetricsTests.swift; sourceTree = "<group>"; };
+		FA00001B /* FaithQuest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FaithQuest.entitlements; sourceTree = "<group>"; };
+		FA00001C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FAAPP001 /* FaithQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaithQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FATEST01 /* FaithQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaithQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -40,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA00001D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +68,7 @@
 			children = (
 				FAGROUP1 /* FaithQuest */,
 				FAGROUP2 /* FaithQuestTests */,
+				FA00001E /* Frameworks */,
 				FAPROD01 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +81,7 @@
 				FAGRPVM /* ViewModels */,
 				FAGRPVW /* Views */,
 				FA000014 /* Info.plist */,
+				FA00001B /* FaithQuest.entitlements */,
 			);
 			path = FaithQuest;
 			sourceTree = "<group>";
@@ -86,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				FA000004 /* OmniTheorem.swift */,
+				FA000015 /* HealthMetrics.swift */,
+				FA000017 /* HealthKitBridge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +129,7 @@
 			children = (
 				FA000010 /* OmniTheoremTests.swift */,
 				FA000012 /* PhysicsEngineTests.swift */,
+				FA000019 /* HealthMetricsTests.swift */,
 			);
 			path = FaithQuestTests;
 			sourceTree = "<group>";
@@ -126,6 +141,14 @@
 				FATEST01 /* FaithQuestTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FA00001E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA00001C /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +198,15 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					FATARGET = {
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = FAPROJCL /* Build configuration list for PBXProject "FaithQuest" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -225,6 +257,8 @@
 				FA00000B /* LibraryView.swift */,
 				FA00000D /* SimulationDeck.swift */,
 				FA00000F /* TheoremListView.swift */,
+				FA000016 /* HealthMetrics.swift */,
+				FA000018 /* HealthKitBridge.swift */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +268,7 @@
 			files = (
 				FA000011 /* OmniTheoremTests.swift */,
 				FA000013 /* PhysicsEngineTests.swift */,
+				FA00001A /* HealthMetricsTests.swift */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +401,7 @@
 		FAAPPDEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FaithQuest/FaithQuest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -393,6 +429,7 @@
 		FAAPPREL /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FaithQuest/FaithQuest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";

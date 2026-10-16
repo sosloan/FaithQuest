@@ -17,10 +17,15 @@ class PhysicsEngine: ObservableObject {
     @Published private(set) var state: UnifiedState
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published private(set) var healthSnapshot: HealthSnapshot = .notDetermined
+    @Published private(set) var isSyncingHealth: Bool = false
+    @Published private(set) var healthStatusMessage: String?
     
     // Combine cancellables for managing subscriptions
     private var cancellables = Set<AnyCancellable>()
     private let syncManager = CloudKitSyncManager.shared
+    private let healthSource: HealthMetricSource
+    private var healthRefreshGeneration = 0
     
     // The energy router - inspired by Erlang/OTP
     private let router = EnergyRouter()
@@ -33,8 +38,9 @@ class PhysicsEngine: ObservableObject {
     private let energyTransferRate: Double = 0.01
     private let logicLoopInterval: TimeInterval = 1.0
     
-    init(initialState: UnifiedState = UnifiedState()) {
+    init(initialState: UnifiedState = UnifiedState(), healthSource: HealthMetricSource? = nil) {
         self.state = initialState
+        self.healthSource = healthSource ?? HealthMetricSourceFactory.makeDefault()
         setupLogicLoop()
     }
     
@@ -168,6 +174,54 @@ class PhysicsEngine: ObservableObject {
         state = UnifiedState(
             theorems: state.theorems,
             lockerRoomEnergy: newEnergy,
+            libraryWisdom: state.libraryWisdom,
+            bridgeStrength: state.bridgeStrength
+        )
+    }
+    
+    /// Read Apple Health and raise Locker Room energy to the activity floor when it is higher.
+    /// Health readings stay on device and are not saved to CloudKit.
+    func refreshHealth() async {
+        let generation = await MainActor.run { () -> Int in
+            healthRefreshGeneration += 1
+            isSyncingHealth = true
+            healthStatusMessage = nil
+            return healthRefreshGeneration
+        }
+        
+        do {
+            try await healthSource.requestAuthorization()
+            let snapshot = await healthSource.fetchSnapshot(now: Date())
+            try Task.checkCancellation()
+            await MainActor.run {
+                guard generation == healthRefreshGeneration else { return }
+                applyHealthSnapshot(snapshot)
+                isSyncingHealth = false
+            }
+        } catch is CancellationError {
+            await MainActor.run {
+                guard generation == healthRefreshGeneration else { return }
+                isSyncingHealth = false
+            }
+        } catch {
+            await MainActor.run {
+                guard generation == healthRefreshGeneration else { return }
+                healthStatusMessage = "Could not read Apple Health."
+                isSyncingHealth = false
+            }
+        }
+    }
+    
+    /// Record a health snapshot and apply its activity floor without lowering existing energy.
+    /// Applying the same snapshot again does not add energy a second time.
+    func applyHealthSnapshot(_ snapshot: HealthSnapshot) {
+        healthSnapshot = snapshot
+        let floor = snapshot.activityScore
+        guard floor > state.lockerRoomEnergy else { return }
+        
+        state = UnifiedState(
+            theorems: state.theorems,
+            lockerRoomEnergy: floor,
             libraryWisdom: state.libraryWisdom,
             bridgeStrength: state.bridgeStrength
         )

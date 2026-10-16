@@ -77,6 +77,19 @@ A comprehensive admin interface for system management:
 - CloudKit private database integration
 - Async/await for modern concurrency
 
+### ❤️ Apple Health
+The Locker Room reads seven HealthKit types and keeps them on device. Nothing is written back to Apple Health or synced through CloudKit:
+
+- `activeEnergyBurned`
+- `appleExerciseTime`
+- `bodyMass`
+- `heartRate`
+- `restingHeartRate`
+- `stepCount`
+- `sleepAnalysis`
+
+Active energy, exercise time, steps, and sleep set an activity floor for Locker Room energy. Body mass, heart rate, and resting heart rate are displayed only and are not scored.
+
 ### 📊 Real-time Metrics
 - Locker Room Energy level
 - Library Wisdom level
@@ -95,6 +108,7 @@ Record insights from any realm:
 - **UI Framework**: SwiftUI
 - **Reactive Framework**: Combine
 - **Cloud Sync**: CloudKit
+- **Health**: HealthKit (read-only)
 - **Platforms**: iOS 16+, macOS 13+
 
 ## Project Structure
@@ -104,7 +118,9 @@ FaithQuest/
 ├── Models/
 │   ├── OmniTheorem.swift          # The Truth - immutable data models
 │   ├── EnergyRouter.swift         # Erlang/OTP-inspired router with Blowing/Suction
-│   └── AdminPanel.swift           # Protocol-oriented admin panel model
+│   ├── AdminPanel.swift           # Protocol-oriented admin panel model
+│   ├── HealthMetrics.swift        # Apple Health readings for the Locker Room
+│   └── HealthKitBridge.swift      # Read-only HealthKit source
 ├── ViewModels/
 │   ├── PhysicsEngine.swift        # The Proof - logic loop with Combine
 │   └── AdminPanelViewModel.swift  # Admin panel reactive controller
